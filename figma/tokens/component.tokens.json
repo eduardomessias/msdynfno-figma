@@ -1,0 +1,306 @@
+{
+  "$schema": "https://schemas.tokens.studio/latest/tokens-schema.json",
+  "$description": "Smartbox D365FO component tokens — per-control bindings referencing semantic.tokens.json. Components in Figma bind to these (not to core or semantic directly), so a control's visual contract is one indirection away from a renaming.",
+  "button": {
+    "$description": "Button family — Primary, Secondary (Default), Subtle, Transparent, Outline. Variants: Size S/M/L, State Rest/Hover/Pressed/Focus/Disabled.",
+    "primary": {
+      "background": {
+        "rest":     { "$value": "{brand.background}",         "$type": "color" },
+        "hover":    { "$value": "{brand.backgroundHover}",    "$type": "color" },
+        "pressed":  { "$value": "{brand.backgroundPressed}",  "$type": "color" },
+        "disabled": { "$value": "{surface.disabled}",         "$type": "color" }
+      },
+      "foreground": {
+        "rest":     { "$value": "{text.onAccent}",            "$type": "color" },
+        "disabled": { "$value": "{text.disabled}",            "$type": "color" }
+      },
+      "border": {
+        "rest":     { "$value": "{brand.background}",         "$type": "color" },
+        "disabled": { "$value": "{border.disabled}",          "$type": "color" }
+      }
+    },
+    "secondary": {
+      "background": {
+        "rest":     { "$value": "{surface.raised}",           "$type": "color" },
+        "hover":    { "$value": "{surface.hovered}",          "$type": "color" },
+        "pressed":  { "$value": "{surface.pressed}",          "$type": "color" },
+        "disabled": { "$value": "{surface.disabled}",         "$type": "color" }
+      },
+      "foreground": {
+        "rest":     { "$value": "{text.primary}",             "$type": "color" },
+        "disabled": { "$value": "{text.disabled}",            "$type": "color" }
+      },
+      "border": {
+        "rest":     { "$value": "{border.default}",           "$type": "color" },
+        "hover":    { "$value": "{border.strong}",            "$type": "color" },
+        "disabled": { "$value": "{border.disabled}",          "$type": "color" }
+      }
+    },
+    "subtle": {
+      "background": {
+        "rest":     { "$value": "{color.neutral.transparent}","$type": "color" },
+        "hover":    { "$value": "{surface.hovered}",          "$type": "color" },
+        "pressed":  { "$value": "{surface.pressed}",          "$type": "color" }
+      },
+      "foreground": {
+        "rest":     { "$value": "{text.primary}",             "$type": "color" }
+      }
+    },
+    "transparent": {
+      "background": {
+        "rest":     { "$value": "{color.neutral.transparent}","$type": "color" },
+        "hover":    { "$value": "{color.neutral.transparent}","$type": "color" }
+      },
+      "foreground": {
+        "rest":     { "$value": "{brand.foreground}",         "$type": "color" },
+        "hover":    { "$value": "{brand.foregroundHover}",    "$type": "color" }
+      }
+    },
+    "danger": {
+      "background": {
+        "rest":     { "$value": "{color.status.danger.40}",   "$type": "color" }
+      },
+      "foreground": {
+        "rest":     { "$value": "{text.onAccent}",            "$type": "color" }
+      }
+    },
+    "geometry": {
+      "heightS":    { "$value": "24px",                       "$type": "dimension" },
+      "heightM":    { "$value": "{size.control.heightDefault}","$type": "dimension" },
+      "heightL":    { "$value": "{size.control.heightLarge}", "$type": "dimension" },
+      "paddingX":   { "$value": "{space.m}",                  "$type": "dimension" },
+      "iconGap":    { "$value": "{space.xs}",                 "$type": "dimension" },
+      "radius":     { "$value": "{radius.control}",           "$type": "dimension" }
+    }
+  },
+  "input": {
+    "$description": "Single-line text inputs: StringEdit, RealEdit, IntEdit, DateEdit, TimeEdit.",
+    "background": {
+      "rest":       { "$value": "{surface.raised}",           "$type": "color" },
+      "hover":      { "$value": "{surface.raised}",           "$type": "color" },
+      "focus":      { "$value": "{surface.raised}",           "$type": "color" },
+      "disabled":   { "$value": "{surface.disabled}",         "$type": "color" },
+      "readOnly":   { "$value": "{surface.subtle}",           "$type": "color" }
+    },
+    "foreground": {
+      "rest":       { "$value": "{text.primary}",             "$type": "color" },
+      "placeholder":{ "$value": "{text.tertiary}",            "$type": "color" },
+      "disabled":   { "$value": "{text.disabled}",            "$type": "color" },
+      "danger":     { "$value": "{text.danger}",              "$type": "color" }
+    },
+    "border": {
+      "rest":       { "$value": "{border.default}",           "$type": "color" },
+      "hover":      { "$value": "{border.strong}",            "$type": "color" },
+      "focus":      { "$value": "{border.focus}",             "$type": "color" },
+      "danger":     { "$value": "{border.danger}",            "$type": "color" },
+      "warning":    { "$value": "{border.warning}",           "$type": "color" },
+      "success":    { "$value": "{border.success}",           "$type": "color" },
+      "disabled":   { "$value": "{border.disabled}",          "$type": "color" }
+    },
+    "geometry": {
+      "height":     { "$value": "{size.control.heightDefault}","$type": "dimension" },
+      "paddingX":   { "$value": "{space.s}",                  "$type": "dimension" },
+      "radius":     { "$value": "{radius.input}",             "$type": "dimension" },
+      "borderWidth":{ "$value": "{border.width.default}",     "$type": "dimension" },
+      "borderWidthFocus": { "$value": "{border.width.strong}","$type": "dimension" }
+    }
+  },
+  "combo": {
+    "$description": "Dropdowns, comboboxes, lookups. Visual parity with input, plus caret affordance.",
+    "background": {
+      "rest":       { "$value": "{surface.raised}",           "$type": "color" },
+      "menuFloating":{"$value": "{surface.raised}",           "$type": "color" }
+    },
+    "border": {
+      "rest":       { "$value": "{border.default}",           "$type": "color" },
+      "focus":      { "$value": "{border.focus}",             "$type": "color" }
+    },
+    "caret": {
+      "color":      { "$value": "{text.secondary}",           "$type": "color" }
+    },
+    "menu": {
+      "elevation":  { "$value": "{elevation.flyout}",         "$type": "shadow" },
+      "itemHover":  { "$value": "{surface.hovered}",          "$type": "color" },
+      "itemSelected":{ "$value": "{surface.selectedSubtle}",  "$type": "color" }
+    }
+  },
+  "checkbox": {
+    "$description": "Checkbox + Radio share most tokens; only the indicator shape differs.",
+    "background": {
+      "rest":       { "$value": "{surface.raised}",           "$type": "color" },
+      "checked":    { "$value": "{brand.background}",         "$type": "color" },
+      "disabled":   { "$value": "{surface.disabled}",         "$type": "color" }
+    },
+    "border": {
+      "rest":       { "$value": "{border.strong}",            "$type": "color" },
+      "checked":    { "$value": "{brand.background}",         "$type": "color" }
+    },
+    "checkmark": {
+      "color":      { "$value": "{text.onAccent}",            "$type": "color" }
+    },
+    "geometry": {
+      "size":       { "$value": "16px",                       "$type": "dimension" },
+      "radius":     { "$value": "{radius.small}",             "$type": "dimension" }
+    }
+  },
+  "tab": {
+    "$description": "Tab (standard) and FastTab header.",
+    "standard": {
+      "background": {
+        "rest":     { "$value": "{color.neutral.transparent}","$type": "color" },
+        "hover":    { "$value": "{surface.hovered}",          "$type": "color" }
+      },
+      "foreground": {
+        "rest":     { "$value": "{text.primary}",             "$type": "color" },
+        "selected": { "$value": "{brand.foreground}",         "$type": "color" }
+      },
+      "indicator": {
+        "selected": { "$value": "{border.accent}",            "$type": "color" }
+      }
+    },
+    "fastTab": {
+      "headerBackground": {
+        "rest":     { "$value": "{surface.subtle}",           "$type": "color" },
+        "hover":    { "$value": "{surface.hovered}",          "$type": "color" }
+      },
+      "headerForeground": {
+        "rest":     { "$value": "{text.primary}",             "$type": "color" }
+      },
+      "summaryForeground": {
+        "rest":     { "$value": "{text.secondary}",           "$type": "color" }
+      },
+      "divider": {
+        "color":    { "$value": "{border.subtle}",            "$type": "color" }
+      }
+    }
+  },
+  "grid": {
+    "$description": "Data grid — header, row, cell, selection.",
+    "headerBackground":      { "$value": "{surface.subtle}",           "$type": "color" },
+    "headerForeground":      { "$value": "{text.primary}",             "$type": "color" },
+    "headerBorderBottom":    { "$value": "{border.default}",           "$type": "color" },
+    "rowBackground":         { "$value": "{surface.raised}",           "$type": "color" },
+    "rowBackgroundAlt":      { "$value": "{surface.subtle}",           "$type": "color" },
+    "rowBackgroundHover":    { "$value": "{surface.hovered}",          "$type": "color" },
+    "rowBackgroundSelected": { "$value": "{surface.selectedSubtle}",   "$type": "color" },
+    "cellForeground":        { "$value": "{text.primary}",             "$type": "color" },
+    "cellForegroundLink":    { "$value": "{text.link}",                "$type": "color" },
+    "cellBorder":            { "$value": "{border.subtle}",            "$type": "color" },
+    "geometry": {
+      "headerHeight":        { "$value": "32px",              "$type": "dimension" },
+      "rowHeightCompact":    { "$value": "28px",              "$type": "dimension" },
+      "rowHeightDefault":    { "$value": "32px",              "$type": "dimension" },
+      "cellPaddingX":        { "$value": "{spacing.grid.cellPaddingX}", "$type": "dimension" },
+      "cellPaddingY":        { "$value": "{spacing.grid.rowPaddingY}",  "$type": "dimension" }
+    }
+  },
+  "actionPane": {
+    "$description": "ActionPane — top toolbar with tabs (Order / Manage / Related / Options) → groups → command buttons.",
+    "background":            { "$value": "{surface.raised}",           "$type": "color" },
+    "borderBottom":          { "$value": "{border.subtle}",            "$type": "color" },
+    "tabForeground": {
+      "rest":                { "$value": "{text.primary}",             "$type": "color" },
+      "selected":            { "$value": "{brand.foreground}",         "$type": "color" }
+    },
+    "tabIndicator": {
+      "selected":            { "$value": "{border.accent}",            "$type": "color" }
+    },
+    "groupCaption":          { "$value": "{text.tertiary}",            "$type": "color" },
+    "groupDivider":          { "$value": "{border.subtle}",            "$type": "color" },
+    "geometry": {
+      "height":              { "$value": "80px",              "$type": "dimension" },
+      "tabRowHeight":        { "$value": "32px",              "$type": "dimension" },
+      "buttonRowHeight":     { "$value": "48px",              "$type": "dimension" },
+      "paddingX":            { "$value": "{spacing.actionPane.paddingX}", "$type": "dimension" },
+      "buttonGap":           { "$value": "{spacing.actionPane.buttonGap}","$type": "dimension" },
+      "groupGap":            { "$value": "{spacing.actionPane.groupGap}", "$type": "dimension" }
+    }
+  },
+  "factBox": {
+    "$description": "Right-pane card or grid showing related info.",
+    "background":            { "$value": "{surface.raised}",           "$type": "color" },
+    "border":                { "$value": "{border.subtle}",            "$type": "color" },
+    "headerForeground":      { "$value": "{text.primary}",             "$type": "color" },
+    "bodyForeground":        { "$value": "{text.secondary}",           "$type": "color" },
+    "elevation":             { "$value": "{elevation.factbox}",        "$type": "shadow" },
+    "geometry": {
+      "width":               { "$value": "{size.factbox.width}",       "$type": "dimension" },
+      "paddingY":            { "$value": "{space.m}",                  "$type": "dimension" },
+      "paddingX":            { "$value": "{space.m}",                  "$type": "dimension" },
+      "radius":              { "$value": "{radius.card}",              "$type": "dimension" }
+    }
+  },
+  "filterPane": {
+    "$description": "Side filter pane (advanced filter) and quick filter strip.",
+    "background":            { "$value": "{surface.subtle}",           "$type": "color" },
+    "borderRight":           { "$value": "{border.subtle}",            "$type": "color" },
+    "geometry": {
+      "width":               { "$value": "280px",            "$type": "dimension" },
+      "paddingY":            { "$value": "{space.m}",        "$type": "dimension" },
+      "paddingX":            { "$value": "{space.m}",        "$type": "dimension" }
+    }
+  },
+  "recordTitle": {
+    "$description": "Page title band shown above a Details Master / Transaction. Format <ID> : <Description>.",
+    "foreground":            { "$value": "{text.primary}",             "$type": "color" },
+    "subtleForeground":      { "$value": "{text.secondary}",           "$type": "color" },
+    "typography":            { "$value": "{typography.title2}",        "$type": "typography" },
+    "statusPillBackground":  { "$value": "{surface.subtle}",           "$type": "color" },
+    "statusPillForeground":  { "$value": "{text.secondary}",           "$type": "color" }
+  },
+  "navigation": {
+    "$description": "Left navigation pane and top breadcrumb.",
+    "pane": {
+      "background":          { "$value": "{surface.subtle}",           "$type": "color" },
+      "itemForeground": {
+        "rest":              { "$value": "{text.primary}",             "$type": "color" },
+        "selected":          { "$value": "{brand.foreground}",         "$type": "color" }
+      },
+      "itemBackground": {
+        "hover":             { "$value": "{surface.hovered}",          "$type": "color" },
+        "selected":          { "$value": "{surface.selectedSubtle}",   "$type": "color" }
+      }
+    },
+    "breadcrumb": {
+      "foreground":          { "$value": "{text.secondary}",           "$type": "color" },
+      "separator":           { "$value": "{text.tertiary}",            "$type": "color" }
+    }
+  },
+  "dialog": {
+    "$description": "Modal dialog surface.",
+    "background":            { "$value": "{surface.raised}",           "$type": "color" },
+    "overlay":               { "$value": "rgba(0,0,0,0.40)",           "$type": "color" },
+    "elevation":             { "$value": "{elevation.dialog}",         "$type": "shadow" },
+    "geometry": {
+      "paddingY":            { "$value": "{spacing.dialog.paddingY}",  "$type": "dimension" },
+      "paddingX":            { "$value": "{spacing.dialog.paddingX}",  "$type": "dimension" },
+      "radius":              { "$value": "{radius.card}",              "$type": "dimension" },
+      "minWidth":            { "$value": "480px",            "$type": "dimension" },
+      "maxWidth":            { "$value": "720px",            "$type": "dimension" }
+    }
+  },
+  "badge": {
+    "$description": "Workflow status, validation status, counter badges.",
+    "info": {
+      "background":          { "$value": "{color.status.info.100}",    "$type": "color" },
+      "foreground":          { "$value": "{color.status.info.20}",     "$type": "color" }
+    },
+    "success": {
+      "background":          { "$value": "{color.status.success.100}", "$type": "color" },
+      "foreground":          { "$value": "{color.status.success.10}",  "$type": "color" }
+    },
+    "warning": {
+      "background":          { "$value": "{color.status.warning.100}", "$type": "color" },
+      "foreground":          { "$value": "{color.status.warning.10}",  "$type": "color" }
+    },
+    "danger": {
+      "background":          { "$value": "{color.status.danger.100}",  "$type": "color" },
+      "foreground":          { "$value": "{color.status.danger.10}",   "$type": "color" }
+    },
+    "geometry": {
+      "height":              { "$value": "20px",             "$type": "dimension" },
+      "paddingX":            { "$value": "{space.s}",        "$type": "dimension" },
+      "radius":              { "$value": "{radius.pill}",    "$type": "dimension" }
+    }
+  }
+}

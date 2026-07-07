@@ -1,0 +1,1314 @@
+<title>D365FO Figma Catalog — Smartbox</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sb:#0C1428;--sb-hover:#172240;--sb-active:#1E3A6E;--sb-active-txt:#93C5FD;
+  --sb-sec:#4A6080;--sb-txt:#CBD5E1;--sb-muted:#64748B;
+  --bg:#EEF2F7;--card:#fff;--accent:#2563EB;--accent-lt:#EFF6FF;
+  --txt:#0F172A;--muted:#64748B;--border:#E2E8F0;
+  --s-green:#16A34A;--s-green-bg:#DCFCE7;
+  --s-amber:#D97706;--s-amber-bg:#FEF3C7;
+  --s-grey:#94A3B8;--s-grey-bg:#F1F5F9;
+  --f:'Segoe UI',system-ui,-apple-system,sans-serif;
+  --mono:'Consolas','Courier New',monospace;
+}
+body{font-family:var(--f);font-size:14px;line-height:1.6;color:var(--txt);background:var(--bg)}
+.layout{position:fixed;inset:0;display:flex;overflow:hidden}
+
+/* Sidebar */
+.sidebar{width:260px;min-width:260px;background:var(--sb);display:flex;flex-direction:column;overflow:hidden;border-right:1px solid #1E2D4A}
+.sb-head{padding:18px 16px 12px;border-bottom:1px solid #1E2D4A}
+.brand{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
+.brand-logo{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#93C5FD}
+.brand-sub{font-size:11px;color:var(--sb-muted)}
+.search{width:100%;background:#172240;border:1px solid #1E3A6E;border-radius:5px;padding:6px 10px;color:var(--sb-txt);font-family:var(--f);font-size:13px;outline:none}
+.search::placeholder{color:var(--sb-muted)}
+.search:focus{border-color:var(--accent)}
+.nav{flex:1;overflow-y:auto;padding:6px 0 20px}
+.nav::-webkit-scrollbar{width:3px}
+.nav::-webkit-scrollbar-thumb{background:#1E3A6E;border-radius:2px}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;padding:7px 16px;cursor:pointer;user-select:none}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sb-sec)}
+.sec-count{font-size:10px;color:var(--sb-muted);background:#172240;padding:1px 6px;border-radius:10px}
+.sec-items.hidden{display:none}
+.nav-item{display:flex;align-items:center;gap:8px;padding:5px 16px 5px 24px;cursor:pointer;color:var(--sb-txt);font-size:13px;transition:background .1s}
+.nav-item:hover{background:var(--sb-hover)}
+.nav-item.active{background:var(--sb-active);color:#E0EDFF}
+.nav-item-name{flex:1}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dot.seeded{background:var(--s-green)}
+.dot.stub{background:var(--s-amber)}
+.dot.todo{background:var(--sb-muted)}
+
+/* Main */
+.main{flex:1;overflow-y:auto;padding:28px 32px}
+.main::-webkit-scrollbar{width:5px}
+.main::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:3px}
+
+/* Home */
+.home-ttl{font-size:24px;font-weight:700;margin-bottom:4px}
+.home-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.home-sec-lbl{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+.home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:8px}
+.hcard{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.hcard:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:#BFDBFE}
+.hcard-name{font-size:13px;font-weight:600;margin-bottom:5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.hcard-figma{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:7px}
+.hcard-purpose{font-size:12px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Badge */
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;line-height:1.4}
+.badge.seeded{background:var(--s-green-bg);color:var(--s-green)}
+.badge.stub{background:var(--s-amber-bg);color:var(--s-amber)}
+.badge.todo{background:var(--s-grey-bg);color:var(--s-grey)}
+
+/* Item view */
+.item-head{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px 26px;margin-bottom:14px}
+.item-brow{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.item-name{font-size:22px;font-weight:700;color:var(--txt);text-wrap:balance;margin-bottom:10px}
+.item-meta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px}
+.meta-grp{display:flex;flex-direction:column;gap:3px}
+.meta-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.meta-val{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-lt);padding:2px 8px;border-radius:4px;display:inline-block}
+.item-purpose{font-size:14px;line-height:1.65;color:var(--txt)}
+
+/* Section card */
+.sec{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 24px;margin-bottom:10px}
+.sec-ttl{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+
+/* Anatomy */
+.anatomy{background:#0C1428;border-radius:6px;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.75;color:#93C5FD;overflow-x:auto;white-space:pre}
+
+/* Rules */
+.rules{list-style:none;display:flex;flex-direction:column;gap:7px}
+.rules li{display:flex;gap:10px;font-size:13px;line-height:1.5}
+.rules li::before{content:'—';color:var(--muted);flex-shrink:0}
+
+/* Do/Don't */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.do-blk{background:#F0FDF4;border-left:3px solid var(--s-green);border-radius:6px;padding:13px}
+.dn-blk{background:#FEF2F2;border-left:3px solid #EF4444;border-radius:6px;padding:13px}
+.dd-lbl{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+.do-blk .dd-lbl{color:var(--s-green)}
+.dn-blk .dd-lbl{color:#DC2626}
+.dd-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.dd-list li{font-size:12px;line-height:1.45;display:flex;gap:7px}
+.do-blk .dd-list li::before{content:'✓';color:var(--s-green);flex-shrink:0}
+.dn-blk .dd-list li::before{content:'✕';color:#DC2626;flex-shrink:0}
+
+/* Props table */
+.ptbl{width:100%;border-collapse:collapse;font-size:13px}
+.ptbl th{text-align:left;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:5px 10px;background:#F8FAFC;border-bottom:1px solid var(--border)}
+.ptbl td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.ptbl tr:last-child td{border-bottom:none}
+.ptbl tr:hover td{background:#F8FAFC}
+.ptbl td:first-child{font-family:var(--mono);font-size:12px;color:var(--accent);white-space:nowrap}
+
+/* Figma chip */
+.figma-chip{display:inline-flex;align-items:center;gap:6px;background:#F5F3FF;border:1px solid #DDD6FE;border-radius:6px;padding:5px 11px;font-family:var(--mono);font-size:12px;color:#5B21B6;margin-bottom:8px}
+.variants{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.vchip{background:#F8FAFC;border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:11px;color:var(--muted);font-family:var(--mono)}
+
+/* Pending */
+.pending{background:var(--card);border:1px dashed var(--border);border-radius:10px;padding:40px;text-align:center;color:var(--muted)}
+.pending h3{font-size:15px;color:var(--txt);margin-bottom:8px}
+.pending code{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-lt);padding:2px 6px;border-radius:3px}
+
+/* ─── Wireframe diagrams ─── */
+.wf{border:1.5px solid #93C5FD;border-radius:6px;overflow:hidden;background:#EFF6FF;font-family:var(--mono);color:#1D4ED8;margin-bottom:4px;font-size:10px}
+.wf-chrome{background:#1E293B;height:22px;display:flex;align-items:center;padding:0 8px;gap:5px;color:#94A3B8;font-size:9px}
+.wf-cd{width:6px;height:6px;border-radius:50%;background:#4B5563;flex-shrink:0}
+.wf-ap{background:#DBEAFE;border-bottom:1.5px solid #93C5FD;display:flex;gap:3px;padding:3px 6px;align-items:center;flex-wrap:wrap;min-height:26px}
+.wf-abt{background:#BFDBFE;border-radius:3px 3px 0 0;padding:3px 8px;font-size:9px;cursor:default}
+.wf-abt.on{background:#2563EB;color:#fff}
+.wf-btn{background:#fff;border:1px solid #93C5FD;border-radius:3px;padding:2px 7px;font-size:9px;white-space:nowrap;cursor:default}
+.wf-body{display:flex;overflow:hidden;min-height:90px}
+.wf-left{width:170px;min-width:170px;border-right:1.5px solid #93C5FD}
+.wf-center{flex:1;min-width:0}
+.wf-fb{width:150px;min-width:150px;border-left:1.5px solid #93C5FD}
+.wf-fp{width:145px;min-width:145px;border-right:1.5px solid #93C5FD}
+.wf-shd{background:#DBEAFE;border-bottom:1px solid #93C5FD;padding:3px 8px;font-size:9px;font-weight:700}
+.wf-g{width:100%;border-collapse:collapse}
+.wf-g th{background:#DBEAFE;border-bottom:1.5px solid #93C5FD;padding:2px 5px;text-align:left;font-size:9px;font-weight:700;white-space:nowrap}
+.wf-g td{border-bottom:1px solid #BFDBFE;padding:2px 5px;font-size:9px;white-space:nowrap}
+.wf-g tr:nth-child(even) td{background:rgba(219,234,254,.25)}
+.wf-g td.lk{color:#2563EB;text-decoration:underline}
+.wf-ft{border:1px solid #93C5FD;margin:4px 5px;border-radius:3px;overflow:hidden}
+.wf-fth{background:#DBEAFE;padding:3px 8px;font-size:9px;font-weight:700;display:flex;align-items:center}
+.wf-ftb{padding:5px 7px;display:flex;flex-wrap:wrap;gap:5px}
+.wf-f{display:flex;flex-direction:column;gap:2px;min-width:78px}
+.wf-fl{font-size:8px;color:#64748B;text-transform:uppercase;letter-spacing:.04em}
+.wf-fv{background:#fff;border:1px solid #93C5FD;border-radius:2px;padding:1px 5px;font-size:9px;min-height:15px}
+.wf-qf{display:flex;align-items:center;gap:5px;padding:3px 6px;border-bottom:1px solid #BFDBFE}
+.wf-qi{flex:1;background:#fff;border:1px solid #93C5FD;border-radius:2px;height:15px}
+.wf-rt{background:#fff;border-bottom:1.5px solid #93C5FD;padding:6px 10px}
+.wf-rid{font-weight:700;font-size:10px;color:#0F172A}
+.wf-wfb{background:#FEF9C3;border-bottom:1.5px solid #FDE68A;padding:3px 8px;display:flex;align-items:center;gap:6px;font-size:9px}
+.wf-chip{border-radius:10px;padding:1px 6px;font-size:8px;font-weight:700;display:inline-block}
+.wf-chip.g{background:#DCFCE7;color:#16A34A}
+.wf-chip.b{background:#DBEAFE;color:#1D4ED8}
+.wf-chip.a{background:#FEF3C7;color:#D97706}
+.wf-chip.r{background:#FEE2E2;color:#DC2626}
+.wf-chip.gr{background:#F1F5F9;color:#64748B}
+.wf-dlg{background:#fff;border:1.5px solid #93C5FD;border-radius:5px;margin:10px auto;max-width:280px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.wf-dlgh{background:#DBEAFE;border-bottom:1.5px solid #93C5FD;padding:5px 10px;font-weight:700;font-size:10px;border-radius:5px 5px 0 0}
+.wf-dlgb{padding:8px 10px;display:flex;flex-direction:column;gap:5px}
+.wf-dlgf{border-top:1px solid #BFDBFE;padding:5px 10px;display:flex;justify-content:flex-end;gap:5px}
+.wf-vtl{width:120px;min-width:120px;border-right:1.5px solid #93C5FD;background:#DBEAFE}
+.wf-vti{padding:4px 10px;font-size:9px;cursor:default;border-bottom:1px solid rgba(147,197,253,.3)}
+.wf-vti.on{background:#2563EB;color:#fff}
+.wf-pano{display:flex;overflow-x:auto}
+.wf-psec{min-width:155px;border-right:1.5px solid #93C5FD}
+.wf-tile{background:#fff;border:1px solid #93C5FD;border-radius:3px;padding:4px 7px;text-align:center;min-width:52px}
+.wf-tv{font-size:12px;font-weight:700;color:#1D4ED8}
+.wf-tl{font-size:8px;color:#64748B}
+.wf-note{font-size:8px;color:#64748B;padding:3px 8px;border-top:1px solid #BFDBFE;font-style:italic;background:#fff}
+.wf-seg{display:inline-flex;border:1px solid #93C5FD;border-radius:3px;overflow:hidden}
+.wf-sp{border-right:1px solid #93C5FD;padding:2px 7px;background:#fff;font-size:9px}
+.wf-sp:last-child{border-right:none}
+.wf-sp.ak{background:#DBEAFE;color:#1D4ED8;font-weight:700}
+.wf-ov{background:rgba(15,23,42,.28);padding:10px;min-height:100px;display:flex;align-items:flex-start;justify-content:center}
+.wf-drop{background:#fff;border:1.5px solid #93C5FD;border-radius:4px;padding:8px;width:190px;box-shadow:0 3px 10px rgba(0,0,0,.14)}
+</style>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-head">
+      <div class="brand"><span class="brand-logo">D365FO</span><span class="brand-sub">Figma Catalog</span></div>
+      <input class="search" id="search" placeholder="Search…" autocomplete="off">
+    </div>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+
+<script>
+const PATTERNS=[
+{id:'list-page',name:'List Page',figma:'Pattern/ListPage',aot:'ListPage',status:'Seeded',
+purpose:'A standalone grid of records with no co-located detail panel. Primary navigation entry point for entities with more than one details form or where no 1:1 detail view is needed.',
+useWhen:'The entity opens multiple details forms depending on context, or is purely a lookup/filter destination.',
+dontUseWhen:'A single Details Master covers the entity — use Details Master instead.',
+anatomy:'Design\n├── ActionPane (Standard)\n├── (FilterPane)  [optional]\n├── CustomFilterGroup  [optional]\n│   ├── QuickFilter\n│   └── Dropdown filters\n└── Grid (Style=List or Tabular)',
+rules:['QuickFilter always above the grid, left-aligned.','FilterPane on the left when users need multiple simultaneous filter criteria.','First column is the hyperlinked default action — opens the detail form.','Default 6–10 visible columns; let users personalise via column chooser.'],
+doList:['Use for entities with more than one details form.','Enable Export to Excel via the system-defined button.'],
+dontList:['Don\'t use if a single Details Master covers the entity.','Don\'t hard-code filter values — use SysQuery.'],
+figmaVariants:['FilterPane: Yes/No','CustomFilter: Yes/No','Grid style: List/Tabular'],props:[]},
+
+{id:'details-master',name:'Details Master',figma:'Pattern/DetailsMaster',aot:'DetailsFormMaster',status:'Seeded',
+purpose:'The canonical pattern for a master entity (Customer, Vendor, Item). Combines a navigation list (left) with a detail panel (right) showing FastTabs for the selected record.',
+useWhen:'The entity is a master record — a party, item, or resource — with multiple header attributes.',
+dontUseWhen:'The entity is transactional (use Details Transaction). The entity is simple enough for Simple List.',
+anatomy:'Design\n├── ActionPane (Standard)\n├── SidePanel (Style=SelectionList)\n│   └── Grid (Style=List)  — navigation list\n└── DetailsPanel\n    ├── HeaderTitle (ID + Description)\n    └── Tab (Style=FastTabs)\n        └── TabPage (1..N)  — FastTabs',
+rules:['Navigation list: Grid Style=List, 2–3 columns (ID, Name, Status).','First FastTab expanded; all others collapsed.','Promote 1–3 summary fields per FastTab.','FactBox panel recommended for related info.'],
+doList:['Default-expand only the first FastTab.','Add a FactBox for related entity info.'],
+dontList:['Don\'t use for transactional records.','Don\'t show more than 8–10 FastTabs.'],
+figmaVariants:['FactBox: Yes/No','StandardTabs variant'],props:[]},
+
+{id:'details-transaction',name:'Details Transaction',figma:'Pattern/DetailsTransaction',aot:'DetailsFormTransaction',status:'Seeded',
+purpose:'For transactional records with a Header and one or more Line collections (e.g. Sales order). Provides three views: Grid (list), Header (record detail), and Line (line grid + per-line detail tabs).',
+useWhen:'The entity has a header record and child line collections that must be edited together.',
+dontUseWhen:'The entity has no lines — use Details Master or Simple Details.',
+anatomy:'Design\n├── ActionPane (Standard)\n├── Grid view  — tabular list (default landing)\n│   ├── QuickFilter + CustomFilterGroup\n│   └── Grid (Tabular)\n├── Header view  — on record click\n│   ├── SidePanel (nav list)\n│   ├── RecordTitle / HeaderTitle\n│   └── Tab (FastTabs) — header fields\n└── Line view  — LINES toggle\n    ├── LineViewHeader (summary band)\n    ├── Grid (line grid, Tabular)\n    └── Tab (Style=Tabs) — per-line detail',
+rules:['Three views (Grid, Header, Line) are all required.','Header/Lines toggle is rendered as a tab strip in the ActionPane area.','Line detail uses Standard Tabs (Style=Tabs), not FastTabs.','Navigation list in Header/Line views: Grid Style=List, ≤3 columns.'],
+doList:['Include all three views in the Figma mock.','Show the SidePanel nav list in Header and Line views.'],
+dontList:['Don\'t use FastTabs in the line detail area — Standard Tabs only.','Don\'t omit the Grid view — it\'s always the default landing.'],
+figmaVariants:['View: GridView/HeaderView/LineView','FactBox: Yes/No'],props:[]},
+
+{id:'simple-details',name:'Simple Details',figma:'Pattern/SimpleDetails',aot:'SimpleDetails',status:'Seeded',
+purpose:'A single-record edit form with no navigation list. Used for parameters pages, profile records, and any entity where there is always exactly one record in context.',
+useWhen:'The form always works on a single pre-selected record — parameters, user settings, a record opened from a calling form.',
+dontUseWhen:'The user needs to navigate between multiple records — use Details Master.',
+anatomy:'Design\n├── ActionPane (Standard) or none\n└── Body — one of four variants:\n    A. ToolbarAndFields  — local toolbar + flat fields\n    B. FastTabs          — collapsible FastTab sections\n    C. StandardTabs      — horizontal tab strip\n    D. Panorama          — horizontal scroll sections',
+rules:['No navigation list — record is always pre-selected.','FastTabs variant: expand first tab, collapse rest, promote summary fields.','ToolbarAndFields for simple setup records with ≤8 fields.','Don\'t mix FastTabs and Standard Tabs in the same form body.'],
+doList:['Use FastTabs variant when record has 10+ fields in logical sections.','Use ToolbarAndFields for simple setup with ≤8 fields.'],
+dontList:['Don\'t add a navigation list — if navigation is needed, use a different pattern.','Don\'t mix tab styles in the same body.'],
+figmaVariants:['Variant: ToolbarAndFields/FastTabs/StandardTabs/Panorama'],props:[]},
+
+{id:'simple-list',name:'Simple List',figma:'Pattern/SimpleList',aot:'SimpleList',status:'Seeded',
+purpose:'An inline-editable list for simple entity maintenance. All fields are edited directly in the grid — no separate detail panel. Best for reference/code tables with ≤6 fields and no child collections.',
+useWhen:'Entity has ≤6 fields, no child collections, and the user edits values directly in the grid (Units of measure, Payment terms, Reason codes).',
+dontUseWhen:'Entity has >6 fields or child collections — use Simple List and Details.',
+anatomy:'Design\n├── ActionPane (Strip) or CommandButtons\n│   └── New / Delete\n├── (QuickFilter)  [optional]\n└── Grid (editable, Style=List or Tabular)',
+rules:['All editing happens inline — no separate edit form.','Max ≤6 visible columns by default.','New row added at bottom; first field gains focus.','QuickFilter recommended for lists >20 rows.'],
+doList:['Use for reference/code tables with ≤6 fields.','Enable inline row editing.'],
+dontList:['Don\'t use if entity has child collections.','Don\'t add a navigation panel or FastTabs.'],
+figmaVariants:['Grid style: List/Tabular','QuickFilter: Yes/No'],props:[]},
+
+{id:'simple-list-details',name:'Simple List and Details',figma:'Pattern/SimpleListAndDetails',aot:'SimpleListDetails',status:'Seeded',
+purpose:'A split-panel form for medium-complexity entities. List or tree on the left, detail panel on the right. Detail updates synchronously as the user moves through the list.',
+useWhen:'Entity has 6+ fields or 1–5 child collections and the user needs to navigate the list while editing details in the same form.',
+dontUseWhen:'Entity has many child line collections — use Details Transaction. Simple enough for Simple List.',
+anatomy:'Design\n├── ActionPane\n└── Body — one of three variants:\n    A. ListGrid    — list (left) + field group (right)\n    B. TabularGrid — tabular grid (left) + fields (right)\n    C. Tree        — tree (left) + fields (right)',
+rules:['List/tree on the left drives selection; right panel responds synchronously.','ListGrid: left list ≤3 columns. TabularGrid: multi-column left.','Tree: for hierarchical parent-child structures.','≤5 FastTabs in the right detail panel.'],
+doList:['Use ListGrid or TabularGrid for flat entities, Tree for hierarchies.','Show 2–4 key fields in the left list.'],
+dontList:['Don\'t use when child collections have their own children — that\'s Details Transaction.','Don\'t put more than 5 FastTabs in the right panel.'],
+figmaVariants:['Variant: ListGrid/TabularGrid/Tree'],props:[]},
+
+{id:'table-of-contents',name:'Table of Contents',figma:'Pattern/TableOfContents',aot:'TableOfContents',status:'Seeded',
+purpose:'A parameters or setup form with many loosely-related sections. A vertical tab strip on the left acts as a table of contents; each section is a full-height panel on the right.',
+useWhen:'Form is a parameters page or rich setup form with 5+ distinct configuration sections.',
+dontUseWhen:'User needs to navigate between multiple records — single record only.',
+anatomy:'Design\n├── ActionPane (optional)\n└── Tab (Style=VerticalTabs)\n    └── TabPage (1..N) — one section per page\n        └── Group or FastTabs\n            └── Fields / Grids',
+rules:['Vertical tab strip (Style=VerticalTabs) is the defining structural element.','Each TabPage is a logically distinct configuration area.','Sections can contain FastTabs, flat field groups, or grids.','No ActionPane required if form auto-saves (parameters).'],
+doList:['Use for parameters pages with 5+ distinct areas.','Group related configuration into coherent TabPage sections.'],
+dontList:['Don\'t use for transactional or master entity editing.','Don\'t use for navigating between multiple records.'],
+figmaVariants:['ActionPane: Yes/No','Section count: 3–8'],props:[]},
+
+{id:'operational-workspace',name:'Operational Workspace',figma:'Pattern/OperationalWorkspace',aot:'OperationalWorkspace',status:'Seeded',
+purpose:'A role-tailored activity hub aggregating KPIs, lists, charts, and quick links for a specific business role. Primary navigation destination for a persona.',
+useWhen:'Building a role dashboard that surfaces key metrics, actionable lists, and shortcuts for a specific business function.',
+dontUseWhen:'User needs to edit a specific record — workspaces are read and navigate, not edit.',
+anatomy:'Design\n├── ActionPane (optional)\n├── WorkspacePageFilter (top filter bar)\n├── PanoramaSection (1..N)\n│   ├── Section: Tiles (KPI)\n│   ├── Section: Chart\n│   ├── Section: Tabbed list\n│   └── Section: Related links\n└── (FactBox optional)',
+rules:['Workspace filter at top drives all sections simultaneously.','KPI tiles go in the first section.','Sections scroll horizontally (Panorama).','Links navigate to related forms — no in-workspace editing.'],
+doList:['Put the most actionable list in the second section after KPIs.','Include Related links for frequently used forms.'],
+dontList:['Don\'t put editable fields directly in a workspace.','Don\'t exceed 5 sections.'],
+figmaVariants:['WithTabs variant','Section types: Tiles/Chart/TabbedList/RelatedLinks/PowerBI'],props:[]},
+
+{id:'dialog',name:'Dialog',figma:'Pattern/Dialog',aot:'Dialog',status:'Seeded',
+purpose:'A modal form that gathers inputs before executing an action. Blocks interaction with the parent form while open.',
+useWhen:'An action requires 2–15 inputs before it can execute.',
+dontUseWhen:'Action needs ≤7 fields and can hang off the calling button — use Drop Dialog. Action needs full record navigation.',
+anatomy:'Design\n├── DialogHeader (Title — verb phrase)\n├── Body — one of five variants:\n│   A. Basic        — flat field group\n│   B. ReadOnly     — display-only fields\n│   C. WithTabs     — Standard tab strip\n│   D. WithFastTabs — collapsible FastTabs\n│   E. DoubleTabs   — nested tabs\n└── DialogCommitContainer\n    ├── OK (verb-labelled)\n    └── Cancel',
+rules:['Title is a verb phrase: "Post journal", not "Journal posting".','OK button is verb-labelled after the primary action.','Cancel is always present; no ✕ close icon.','Sizes: Small (≤5 fields), Medium (6–10), Large (11–15).'],
+doList:['Verb-label the OK button.','Use WithFastTabs for logically grouped input sections.'],
+dontList:['Don\'t label OK as "OK" — use the action verb.','Don\'t exceed 15 fields.'],
+figmaVariants:['Variant: Basic/ReadOnly/WithTabs/WithFastTabs/DoubleTabs','Size: S/M/L/Full'],props:[]},
+
+{id:'drop-dialog',name:'Drop Dialog',figma:'Pattern/DropDialog',aot:'DropDialog',status:'Seeded',
+purpose:'A small contextual dialog that drops inline below a button. For actions requiring 1–7 quick inputs. No Cancel button — lighter than a full Dialog.',
+useWhen:'Action needs 1–7 inputs and a full modal would feel heavy.',
+dontUseWhen:'Action needs >7 fields — use a full Dialog.',
+anatomy:'Design\n├── (Instructional text — optional)\n├── Body\n│   └── Fields (1..7)\n└── CommitContainer\n    └── OK button (verb-labelled, right-aligned)',
+rules:['Maximum 7 fields.','No Cancel button — Escape and click-outside dismiss.','OK is right-aligned and verb-labelled.','Optional instruction text if the action consequence is not obvious.'],
+doList:['Verb-label the OK button.','Add instructional text when the action\'s consequence isn\'t obvious.'],
+dontList:['Don\'t add a Cancel button.','Don\'t exceed 7 fields.'],
+figmaVariants:['Variant: Basic/ReadOnly','Field count: 1–7'],props:[]},
+
+{id:'lookup',name:'Lookup',figma:'Pattern/Lookup',aot:'Lookup',status:'Seeded',
+purpose:'A custom lookup form for when the auto-generated lookup is insufficient — the reference table is large, needs complex filtering, or requires a preview panel.',
+useWhen:'The auto-generated dropdown is too simple: table >500 rows, multi-column filtering needed, or a preview of the selected record is required.',
+dontUseWhen:'The auto-generated lookup covers the case — use ReferenceGroup with default lookup.',
+anatomy:'Design\n├── (QuickFilter — optional)\n├── Grid (Tabular or List)  — read-only result set\n│   └── Double-click confirms selection\n└── (Preview panel — optional)\n    └── Read-only field group',
+rules:['Double-click (or Enter) confirms and closes.','Grid is always read-only.','QuickFilter strongly recommended for >50 rows.','No editing inside the lookup form.'],
+doList:['Add QuickFilter for tables with >50 rows.','Include only columns the user needs to identify the record.'],
+dontList:['Don\'t allow editing inside lookup.','Don\'t cascade lookup modals.'],
+figmaVariants:['Variant: Basic/WithTabs/WithPreview'],props:[]},
+
+{id:'factbox',name:'FactBox',figma:'Pattern/FactBox',aot:'FactBox',status:'Seeded',
+purpose:'A collapsible right-side panel showing related information about the selected record without navigating away. Always read-only.',
+useWhen:'Supplementary related data should be visible alongside the main record without taking edit focus away.',
+dontUseWhen:'The user needs to edit the related data — open a separate form instead.',
+anatomy:'FactBox panel (right side of form)\n└── FactBox (1..N, collapsible)\n    ├── Header (caption + record count)\n    └── Body:\n        A. Card  — read-only field group\n        B. Grid  — small read-only grid',
+rules:['Always read-only — "More…" links open the related record\'s own form.','Each FactBox: caption + optional record count.','Panel can be collapsed by the user — don\'t rely on it being always visible.','Foundation FactBoxes (Attachments) are added by the framework automatically.'],
+doList:['Add "More…" links to open related records.','Keep each FactBox to ≤6 fields (Card) or ≤5 rows (Grid).'],
+dontList:['Don\'t add editable fields.','Don\'t recreate the Attachments FactBox — the framework provides it.'],
+figmaVariants:['Variant: Card/Grid','FactBox count: 1–4'],props:[]},
+];
+
+const CONTROLS=[
+{id:'action-pane',name:'ActionPane',figma:'Pattern/ActionPane',aot:'ActionPane (Style=Standard or Strip)',status:'Seeded',
+purpose:'The primary location for page-level and local actions. Full-width tab strip (Standard) at the top of the form or compact toolbar (Strip) inside a container.',
+anatomy:'ActionPane (Style=Standard)\n├── ActionPaneTab (0..10)\n│   └── ButtonGroup (1..N)\n│       └── MenuItemButton | MenuButton | DropDialogButton\n└── ButtonGroup (0..N)  — promoted buttons\n\nActionPane (Style=Strip)  — local toolbar\n└── ButtonGroup → Buttons',
+rules:['System-defined buttons (New, Delete, Save, etc.) are framework-injected — never re-create them.','Up to 10 tabs; first tab named after the entity (singular noun); last tab is "General".','Max 8 buttons per ButtonGroup.','Dialog, Drop Dialog, and Lookup forms do not use a Standard ActionPane.'],
+doList:['Name the first tab after the entity (sentence case, singular).','Group buttons by activity: New, Maintain, Generate, Inquire, Related, General.'],
+dontList:['Don\'t manually add New/Delete/Save.','Don\'t exceed 10 tabs or 8 buttons per group.'],
+figmaVariants:['Style: Standard/Strip','Tab count: 1–10'],props:[]},
+
+{id:'fast-tab',name:'FastTab',figma:'Control/FastTab',aot:'Tab (Style=FastTabs) > TabPage',status:'Seeded',
+purpose:'An expandable / collapsible section of a form. The dominant field-grouping mechanism on Details Master, Details Transaction header, Simple Details, and Dialog forms.',
+anatomy:'Tab (Style=FastTabs)\n└── TabPage (1..N)\n    ├── Header — Caption + SummaryFields (0..3)\n    └── Body — applies a subpattern:\n        ├── Fields and Field Groups\n        ├── Toolbar and Fields\n        └── Toolbar and List',
+rules:['First FastTab expanded by default; all others collapsed.','Promote 1–3 summary fields per FastTab (visible when collapsed).','Summary fields cannot be: ReferenceGroups, display methods, or unbound fields.','FastTabs containing only a grid have no summary fields.'],
+doList:['Default-expand only the first FastTab.','Promote fields that answer "what is this record?" at a glance.'],
+dontList:['Don\'t nest FastTabs inside FastTabs.','Don\'t use display methods or ReferenceGroups as summary fields.'],
+figmaVariants:['State: Collapsed/Expanded','Mode: Light/Dark/HighContrast','Density: Compact/Comfortable'],
+props:[['Tab.Style','FastTabs'],['TabPage.Caption','Required (label ID)'],['TabPage.DataSource','Required (BP)'],['TabPage.FastTabExpanded','Yes on first TabPage only']]},
+
+{id:'grid',name:'Grid',figma:'Control/Grid',aot:'Grid',status:'Seeded',
+purpose:'The primary control for displaying and editing multiple records. Two styles: Tabular (column headers, best for bulk-edit) and List (compact rows, best for navigation panels).',
+anatomy:'Grid\n├── Column headers (Tabular only)\n├── Row (1..N)\n│   ├── Row selector (checkbox)\n│   └── Cells\n└── Footer row — inline New',
+rules:['Tabular: column-based, best for data comparison and bulk edit.','List: 2–3 lines per row, best for SidePanel and lookup lists.','First column is the hyperlinked default action.','ID column is sticky (pinned left) on wide grids.'],
+doList:['Use Tabular for bulk-edit grids.','Use List style for SidePanel navigation.'],
+dontList:['Don\'t show >10 columns by default.','Don\'t use Grid to display a single record — use a FastTab.'],
+figmaVariants:['Style: Tabular/List','Editable: Yes/No'],
+props:[['Grid.Style','List or Tabular'],['Grid.EditTrigger','OnRowChange (editable) or Never (read-only)'],['Grid.MultiSelect','Yes for bulk-action grids']]},
+
+{id:'filter-pane',name:'FilterPane + QuickFilter',figma:'Pattern/FilterPane, Control/QuickFilter',aot:'FilterPane + Group (CustomFilterGroup)',status:'Seeded',
+purpose:'FilterPane: collapsible left panel hosting multiple filter criteria. QuickFilter: single-field text filter above the grid. Custom Filter Group: dropdown filters between QuickFilter and grid headers.',
+anatomy:'FilterPane (left, collapsible)\n├── Filter section (1..N)\n│   └── Filter controls\n└── [Apply] button\n\nQuickFilter (above grid, left-aligned)\n└── StringEdit (searches configured columns)\n\nCustomFilterGroup (above grid, right of QuickFilter)\n└── Dropdown filters',
+rules:['QuickFilter always directly above the grid, left-aligned.','FilterPane to the left of the grid.','Advanced Filter (Ctrl+Shift+F3) is always available from the framework — do not replicate.','Custom Filter Group is the middle ground between QuickFilter and FilterPane.'],
+doList:['Use QuickFilter for single-column keyword search.','Use FilterPane when users need multiple simultaneous filter criteria.'],
+dontList:['Don\'t replicate the Advanced Filter dialog.','Don\'t put filter controls inside a FastTab body.'],
+figmaVariants:['FilterPane: Show/Hide','CustomFilterGroup: Yes/No'],props:[]},
+
+{id:'group',name:'Group',figma:'Control/Group',aot:'Group',status:'Seeded',
+purpose:'The fundamental layout container for fields, labels, and nested controls. Renders as an unstyled frame (no border by default). Every subpattern is applied to the root Group of a container.',
+anatomy:'Group\n├── Label (static, optional)\n├── FormControl (0..N)\n└── Group (nested, ≤2 levels deep)',
+rules:['Set DataSource on every Group with bound fields (BP rule).','Use ColumnsMode=Auto for responsive column count.','No FrameType=Box in standard form patterns — reserved for Dialog groupings.','Avoid nesting Groups more than 2 levels deep.'],
+doList:['Set DataSource on every Group with bound fields.','Use ColumnsMode=Auto for most Groups.'],
+dontList:['Don\'t use FrameType=Box in main-form patterns.','Don\'t nest Groups more than 2 levels.'],
+figmaVariants:['Frame: None/Box','Columns: 1/2/Auto','Caption: Show/Hide'],
+props:[['Group.ArrangeMethod','HorizontalLeft (default) / VerticalTop'],['Group.ColumnsMode','Auto (preferred) / Fixed'],['Group.DataSource','Required when Group contains bound fields'],['Group.FrameType','None (standard) / Box (dialogs only)']]},
+
+{id:'tab',name:'Tab (Standard)',figma:'Control/Tab',aot:'Tab (Style=Tabs)',status:'Seeded',
+purpose:'A horizontal tab strip with persistent headers. Shows only the active tab\'s content. Used in Line Details of Details Transaction and in Dialog/WithTabs variants.',
+anatomy:'Tab (Style=Tabs)\n└── TabPage (1..7)\n    ├── Tab header (always visible)\n    └── Body (Group / subpattern)',
+rules:['Maximum 7 tabs — beyond that restructure with Table of Contents.','First tab named after the primary data context (e.g. "General").','No Standard Tabs nested inside Standard Tabs.','Framework remembers the last active tab per user.'],
+doList:['Use Standard Tabs for Line Details in Details Transaction.','Set DataSource on each TabPage.'],
+dontList:['Don\'t exceed 7 tabs.','Don\'t use Standard Tabs as primary grouping on a Details header — use FastTabs there.'],
+figmaVariants:['Active tab: 1–7','Tab count: 2–7'],
+props:[['Tab.Style','Tabs'],['TabPage.Caption','Required (label ID)'],['TabPage.DataSource','Required (BP)']]},
+
+{id:'input-fields',name:'Input Fields',figma:'Atom/Input/String, /Real, /Int, /Date, /Time, /DateTime',aot:'StringEdit, RealEdit, IntEdit, DateEdit, TimeEdit, UtcDateTimeEdit',status:'Seeded',
+purpose:'Atomic editable controls for scalar data. Each is bound to a data source field via an Extended Data Type (EDT) that carries the label, help text, alignment, and validation constraints.',
+anatomy:'<ControlType>\n├── Label (from EDT.Label, above)\n├── Input area\n│   ├── Prefix icon (optional)\n│   └── Value text\n└── Validation message (on error)',
+rules:['Bind every input to a real EDT — never anonymous field types.','Right-align numeric (Real, Int); left-align string fields.','Use display methods for computed read-only values.','Fix the EDT label globally rather than overriding at field level.'],
+doList:['Right-align numeric fields.','Use display methods + AllowEdit=No for computed values.'],
+dontList:['Don\'t override NoOfDecimals at field level without architect sign-off.','Don\'t use StringEdit for enum values — use ComboBox.'],
+figmaVariants:['State: Rest/Focus/Error/ReadOnly/Disabled','Mandatory: Yes/No'],
+props:[['DataSource + DataField','Required on every bound input'],['AllowEdit','No for read-only; Auto inherits from DS'],['Mandatory','Prefer on the EDT so all uses are consistent'],['StringEdit.MultiLine','Yes for memo fields']]},
+
+{id:'buttons',name:'Buttons',figma:'Atom/Button, Atom/Button/Menu, Atom/Button/DropDialog',aot:'MenuItemButton, CommandButton, MenuButton, DropDialogButton, Button',status:'Seeded',
+purpose:'Five button types. MenuItemButton navigates to a menu item (carries security). CommandButton fires system actions. MenuButton opens a dropdown. DropDialogButton opens a Drop Dialog inline. Raw Button calls clicked() override — legacy, avoid for new forms.',
+anatomy:'ActionPane > ActionPaneTab > ButtonGroup\n└── MenuItemButton | MenuButton | DropDialogButton\n\nGroup (local toolbar)\n└── ButtonGroup → MenuItemButton | Button',
+rules:['Verb-phrase labels, sentence case: "Confirm order" not "CONFIRM".','NeedsRecord=Yes (default) — disabled when no record selected.','System buttons (New, Delete, Save…) are framework-injected — never re-create.','Max 8 per ButtonGroup; use MenuButton to group >5 related sub-actions.'],
+doList:['Tie commands to MenuItemButton → MenuItemAction for security.','Use DropDialogButton when action needs 1–7 inputs.'],
+dontList:['Don\'t re-create system-defined buttons.','Don\'t use raw Button type — bypasses the security framework.'],
+figmaVariants:['Type: Default/Primary/Danger','State: Rest/Hover/Pressed/Focus/Disabled','Size: Small/Medium/Large'],
+props:[['MenuItemButton.MenuItemName','The bound menu item (carries privilege)'],['MenuItemButton.MenuItemType','Display / Output / Action'],['Button.NeedsRecord','Yes (default) for record-level actions']]},
+
+{id:'combo',name:'ComboBox',figma:'Atom/Combo',aot:'ComboBox',status:'Seeded',
+purpose:'Selects from a discrete, closed list backed by an AOT BaseEnum. The list is fixed at design time — the framework renders options from the enum; labels come from enum value Label properties.',
+anatomy:'ComboBox\n├── Label (from EDT)\n├── Selected value (text)\n└── Dropdown ▾\n    └── Options (from BaseEnum values)',
+rules:['Always bind to an EDT-backed Enum — no anonymous ComboBoxes.','2–20 enum values — beyond 20 use a Lookup.','NoYes enum fields → use CheckBox, not ComboBox.','No blank/"All" option in a record-bound ComboBox.'],
+doList:['Bind to a proper BaseEnum.','Set Mandatory=Yes for required selections.'],
+dontList:['Don\'t use for Yes/No fields — use CheckBox.','Don\'t exceed 20 values without considering a Lookup.'],
+figmaVariants:['State: Rest/Hover/Open/ReadOnly/Error/Disabled','Mandatory: Yes/No'],
+props:[['DataSource + DataField','Required (field must be Enum-typed)'],['EnumType','Auto-derived from EDT — do not override'],['AllowEdit','No for read-only enums']]},
+
+{id:'boolean-controls',name:'Boolean Controls',figma:'Atom/Checkbox, Atom/Radio, Atom/Toggle',aot:'CheckBox, RadioButton',status:'Seeded',
+purpose:'Three controls for binary or mutex selection. CheckBox for a single Yes/No toggle. RadioButton for 2–5 mutually exclusive options. Toggle for mode-switch actions in toolbars.',
+anatomy:'CheckBox\n├── Box (☐ / ☑)\n└── Label (right of box)\n\nRadioButton group\n└── Group (named)\n    └── RadioButton (2..5)\n        ├── Indicator (○ / ●)\n        └── Label',
+rules:['Use CheckBox for every NoYes-typed field — not ComboBox.','CheckBox label is right of the box, short, positive ("Send notification" not "Don\'t suppress").','RadioButton for 2–5 mutually exclusive enum values. >5 → ComboBox.','Wrap RadioButton sets in a named Group.'],
+doList:['Label CheckBoxes with positive affirmations.','Wrap RadioButton sets in a named Group with a caption.'],
+dontList:['Don\'t use ComboBox for boolean fields.','Don\'t exceed 5 options with RadioButton.'],
+figmaVariants:['Checkbox: Unchecked/Checked/Indeterminate','Radio: Unselected/Selected','Toggle: Off/On'],
+props:[['CheckBox.DataField','Must be NoYes or Boolean-typed EDT'],['RadioButton.EnumValue','The specific enum value this button represents']]},
+
+{id:'lookup-control',name:'Lookup / ReferenceGroup',figma:'Atom/Lookup',aot:'ReferenceGroup (preferred) or StringEdit + lookup override',status:'Seeded',
+purpose:'An input backed by a user-maintained reference table. The user types a code or searches via a picker; the framework resolves it to a related record. ReferenceGroup is the modern approach; StringEdit lookup is legacy.',
+anatomy:'ReferenceGroup (FK-bound)\n├── Label (from EDT)\n├── Replacement key field (natural key / name)\n│   └── Editable text + search\n└── Lookup icon ▾\n    └── Picker (inline dropdown or full Lookup form)',
+rules:['Use ReferenceGroup for all new FK fields.','Show the natural key or human-readable name — never the surrogate RecId.','Leave JumpRef=Yes so users can Ctrl+click to navigate to the related record.','Filter the lookup when the reference table has >100 rows.'],
+doList:['Use ReferenceGroup for all new FK relationships.','Enable JumpRef=Yes.'],
+dontList:['Don\'t show the surrogate RecId.','Don\'t use StringEdit + lookup override for new forms.'],
+figmaVariants:['State: Rest/Hover/Open/ReadOnly/Error/Disabled','JumpRef: Yes/No','Mandatory: Yes/No'],
+props:[['ReferenceGroup.ReferenceField','FK field on the current table'],['ReferenceGroup.DataSource','The related (looked-up) data source'],['ReferenceGroup.ReplacementFieldGroup','Field group on related table for display'],['ReferenceGroup.JumpRef','Yes (always)']]},
+
+{id:'segmented-entry',name:'Segmented Entry',figma:'Subpattern/DimensionEntryControl',aot:'SegmentedEntry (controller-driven)',status:'Seeded',
+purpose:'The D365FO UI for entering financial dimension values and ledger account combinations. Each segment is a dimension (Main account, Department, Cost center) with its own independent lookup.',
+anatomy:'SegmentedEntry\n├── Segment 1 — Main account  [ 110100 ]\n├── Separator  -\n├── Segment 2 — Department    [ 0250   ]\n├── Separator  -\n└── Segment N — …             [ …      ]\n    └── Lookup ▾ per segment',
+rules:['Segment count and labels are determined by the account structure — not by the form design.','Wire the correct controller: DimensionDefaultingController, DimensionDynamicAccountController, or LedgerDimensionAccountController.','Always call allowEdit(false) on posted/confirmed records.','Annotate mocks: "Segments shown are representative; actual count depends on Chart of Accounts setup."'],
+doList:['Show representative account structure in mock with a config note.','Call allowEdit(false) when record is posted.'],
+dontList:['Don\'t replicate with individual StringEdit fields.','Don\'t use for anything other than financial dimensions.'],
+figmaVariants:['State: Rest/Focus/ReadOnly/Error','Segment count: 2/3/4 (representative)','Mode: DefaultDimension/LedgerDimension/DynamicAccount'],
+props:[['Controller class','DimensionDefaultingController / DimensionDynamicAccountController / LedgerDimensionAccountController'],['parmAttributeSetDataSource()','Links control to the dimension field']]},
+
+{id:'factbox-panel',name:'FactBox Panel',figma:'Pattern/FactBox (Card / Grid)',aot:'SectionFactBoxes + Part (FormPart) in host form',status:'Seeded',
+purpose:'The collapsible right-side panel on Details Master, Details Transaction, and List Page forms. Surfaces related information (totals, balances, child counts, recent activity) for the currently selected record without requiring navigation.',
+useWhen:'The user regularly needs related data while working on the main record — customer statistics on a sales order, open balances on a customer card, activity counts on a project.',
+dontUseWhen:'The form is Simple Details, Dialog, Drop Dialog, Lookup, or Operational Workspace — none of these support a FactBox panel.',
+anatomy:'Design\n└── SectionFactBoxes (panel container)\n    ├── Part (FormPart 1)  → <FactBoxForm A>  — lead FactBox, expanded\n    ├── Part (FormPart 2)  → <FactBoxForm B>  — collapsed\n    ├── Part (FormPart 3)  → <FactBoxForm C>  — collapsed\n    └── Part (system)     → DocuRef          — Attachments (auto-injected)',
+rules:['Maximum 4–5 FactBoxes in the panel — prefer depth over breadth.','Lead with the most actionable FactBox (totals, open counts, status of a key related entity).','Expand only the first FactBox by default; all others start collapsed.','Attachments FactBox is framework-injected — do not recreate it manually.','Each Part.DataSource must reference the host form\'s data source so the FactBox refreshes on record change.','Always add a "(More…)" link inside the FactBox when a full backing form exists.'],
+doList:['Include a FactBox panel on all Details Master and Details Transaction forms.','Lead with the most actionable FactBox.','Add "(More…)" links to backing forms for every FactBox that has one.','Keep each FactBox focused on a single related entity or concept.'],
+dontList:['Don\'t add editable fields — FactBox content is always read-only.','Don\'t exceed 4–5 FactBoxes in the panel.','Don\'t recreate the Attachments, ActivityWall, or WorkflowHistory FactBoxes.','Don\'t add a FactBox panel to Simple Details, Dialog, Drop Dialog, or Lookup forms.','Don\'t show internal RecIds in FactBox content.'],
+figmaVariants:['Variant: Card/Grid','FactBox count: 1–5','State: First expanded / rest collapsed'],
+props:[['Part.FormName','The standalone FactBox form (Design.Style=FormPart)'],['Part.DataSource','Links FactBox to the host form\'s data source for auto-refresh'],['Part.Caption','Override label (optional — defaults to FactBox form\'s Design.Caption)'],['Part.Visible','Yes/No — can be toggled at runtime via X++ for config-dependent FactBoxes']]},
+
+{id:'workflow-controls',name:'Workflow Controls',figma:'Composite/WorkflowControls',aot:'Workflow framework (WorkflowWorkItemActionManager)',status:'Seeded',
+purpose:'Framework-injected controls appearing on a form when a workflow is enabled. Renders a WorkflowBar beneath the ActionPane with Submit, Approve, Reject, Recall, Delegate, and History — each visible only to the right user in the right status.',
+anatomy:'WorkflowBar (injected beneath ActionPane)\n├── Status chip  — Draft / In review / Approved / Rejected\n├── Submit    (originator, when Draft or Recalled)\n├── Approve   (current approver)\n├── Reject    (current approver)\n├── Recall    (originator, when In review)\n└── History   (always visible)',
+rules:['Form becomes read-only automatically when submitted.','Business status (record field) and workflow status (WorkflowBar chip) are separate — both can appear simultaneously.','Recall moves the document back to Draft — it is not a business cancellation.','Show WorkflowBar in all mocks where workflow will be enabled, even in Draft state.'],
+doList:['Show WorkflowBar in all form mocks where workflow applies.','Note which ActionPane buttons should be disabled per workflow status.'],
+dontList:['Don\'t create a separate workflow status field on the form body — the WorkflowBar chip is authoritative.','Don\'t confuse Recall with business-process cancellation.'],
+figmaVariants:['Status: Draft/InReview/Approved/Rejected/Recalled'],
+props:[['Form.Design.WorkflowEnabled','Yes'],['Form.Design.WorkflowType','The registered WorkflowType AOT object']]},
+];
+
+const COMPOSITES=[
+{id:'record-title',name:'RecordTitle',figma:'Composite/RecordTitle',aot:'HeaderTitle group (pattern-specified)',status:'Seeded',
+purpose:'The read-only identity strip at the top of a details form showing the identifier, human-readable description, and optionally the business status. Always non-editable.',
+anatomy:'RecordTitle area (above ActionPane)\n├── ID text         — primary/natural key (bold)\n├── Separator " : "\n├── Description     — entity name / description\n└── Status (opt)    — " — " + status value',
+rules:['Format: <ID> : <Description> — <Status>. ID-Description separator: " : "; status separator: " — ".','Always show the natural/business key — never the surrogate RecId.','On a new unsaved record: ID shows "<New>", description is empty.','The title area is never editable.'],
+doList:['Follow the <ID> : <Description> format exactly.','Show status in the title for entities with a lifecycle.'],
+dontList:['Don\'t show a RecId in the title.','Don\'t duplicate the status in a FastTab field.'],
+figmaVariants:['Format: IDOnly/IDAndDescription/IDDescriptionStatus','State: Existing/New'],props:[]},
+
+{id:'entity-status',name:'EntityStatus',figma:'Composite/EntityStatus',aot:'StringEdit (AllowEdit=No) in HeaderTitle group',status:'Seeded',
+purpose:'The status badge in the title area communicating the current business lifecycle state at a glance. Distinct from the WorkflowBar chip.',
+anatomy:'EntityStatus (inside RecordTitle)\n├── Status label (enum value label)\n└── Colour indicator (token-driven)',
+rules:['Token mapping — Neutral/Draft: grey, Active/Confirmed: green, InProgress: blue, OnHold: amber, Rejected/Cancelled: red.','Always read-only — status transitions via business logic, never direct field edit.','One status badge per form.','Use the same label everywhere the entity appears (grid column, badge, workspace tile).'],
+doList:['Map each enum value to a status token.','Align labels with business language.'],
+dontList:['Don\'t add a second status field in the FastTab body.','Don\'t confuse business status with workflow status.'],
+figmaVariants:['Category: Neutral/Success/Info/Warning/Danger','Style: Text/Badge'],
+props:[['status.neutral','Grey — Draft, Created, Open'],['status.success','Green — Confirmed, Active, Approved, Posted'],['status.info','Blue — In review, Processing, Scheduled'],['status.warning','Amber — On hold, Partial, Pending'],['status.danger','Red — Rejected, Cancelled, Error']]},
+];
+
+const SUBPATTERNS=[
+{id:'fields-field-groups',name:'Fields and Field Groups',figma:'Subpattern/FieldsAndFieldGroups',aot:'TabPage / Group (SubPattern=FieldsAndFieldGroups)',status:'Seeded',
+purpose:'The most commonly applied subpattern. Governs how fields inside a FastTab or Group flow into a responsive multi-column layout. Apply to every FastTab TabPage that contains only fields — if the TabPage has a grid, use Toolbar and List instead.',
+useWhen:'A FastTab, Dialog body, or TOC section contains only fields (no grid).',
+dontUseWhen:'The container hosts a grid — use Toolbar and List. For full-width single-field notes — use Fill Text.',
+anatomy:'TabPage (or Group)\n├── FieldGroup (Group, 0..N)  — logical grouping\n│   ├── Field 1 (bound control)\n│   └── Field N\n└── Field (0..N)  — ungrouped fields',
+rules:['Set Group.DataSource on every Group with bound fields (BP rule).','Use Group.Breakable=No to keep cohesive groups (e.g. address) together when columns reflow.','Target 2 columns for most FastTabs; let the framework handle responsiveness (ColumnsMode=Auto).','Lead with the most important fields; mandatory fields before read-only computed fields.','5–15 fields per FastTab — below 5: merge; above 15: split into two FastTabs.'],
+doList:['Set Group.DataSource on every Group with bound fields.','Use Breakable=No for cohesive groups (address, financial dimensions).','Leave ColumnsMode=Auto on the outer container.'],
+dontList:['Don\'t put a Grid in a FieldsAndFieldGroups container — use Toolbar and List.','Don\'t override EDT labels at field level without a documented reason.','Don\'t use FrameType=Box outside of dialogs.'],
+figmaVariants:['Columns: 1/2/3','GroupCaption: Show/Hide'],
+props:[['Group.DataSource','Required when Group contains bound fields'],['Group.Breakable','No to keep group together on column reflow'],['Group.ColumnsMode','Auto (default) — responsive column count'],['Field.Mandatory','Prefer setting on the EDT, not the field']]},
+
+{id:'toolbar-list',name:'Toolbar and List',figma:'Subpattern/ToolbarAndList (+ /Double)',aot:'TabPage / Group (SubPattern=ToolbarAndList)',status:'Seeded',
+purpose:'The required subpattern for any FastTab that hosts a local grid with its own add/remove/action buttons. ActionPane Strip (toolbar) sits above the Grid. Double variant: one toolbar + two side-by-side grids.',
+useWhen:'A FastTab contains a grid with row-level actions (add, remove, custom actions).',
+dontUseWhen:'The FastTab contains only fields — use Fields and Field Groups. For Available→Selected move UIs — use List Panel.',
+anatomy:'TabPage (or Group)\n├── ActionPane (Style=Strip)\n│   └── ButtonGroup\n│       └── MenuItemButton | MenuButton (1..N)\n└── Grid (1..2)  — 2nd Grid only in Double variant',
+rules:['Add and Remove go first in the toolbar; use ButtonDisplay=Auto for both.','Max 10 buttons in the Strip toolbar — use MenuButton for overflow.','Set DataSource.InsertIfEmpty=No on the child data source.','NeedsRecord=No on Add button; NeedsRecord=Yes (default) on Remove.','Read-only grids: set EditTrigger=Never and remove Add/Remove.'],
+doList:['Put Add before Remove; use ButtonDisplay=Auto for both.','Set InsertIfEmpty=No on the grid\'s data source.','Use NeedsRecord=No on the Add button.'],
+dontList:['Don\'t exceed 10 buttons in the Strip.','Don\'t use Style=Standard for local toolbars inside containers.','Don\'t add an explicit Save button — form-level Save covers child data sources.'],
+figmaVariants:['Toolbar buttons: Add+Remove/Add+Remove+Actions/ReadOnly','Grid style: Tabular/List','Double: No/Yes'],
+props:[['ActionPane.Style','Strip (not Standard)'],['Grid.DataSource','Secondary (child) data source'],['DataSource.InsertIfEmpty','No'],['Add button NeedsRecord','No']]},
+
+{id:'toolbar-fields',name:'Toolbar and Fields',figma:'Subpattern/ToolbarAndFields',aot:'TabPage / Group (SubPattern=ToolbarAndFields)',status:'Seeded',
+purpose:'Container subpattern for sections that need action buttons directly above a field layout. Toolbar (Strip) sits above a ContentGroup. Common in the line summary band of Details Transaction and FastTabs with record-level actions.',
+useWhen:'A FastTab body needs both action buttons and a field layout (fields, not a grid).',
+dontUseWhen:'The container has a grid — use Toolbar and List. Actions are page-level — put them in the main ActionPane instead.',
+anatomy:'TabPage (or Group)\n├── ActionPane (Style=Strip)\n│   └── ButtonGroup → buttons\n└── ContentGroup (Group)\n    └── SubPattern: FieldsAndFieldGroups or TabularFields',
+rules:['Use Strip style on the ActionPane — never Standard inside a container.','ContentGroup applies FieldsAndFieldGroups or TabularFields inner subpattern.','Maximum 10 Strip buttons.','Only FastTab-scoped actions belong here — page-level actions stay in the main ActionPane.'],
+doList:['Set ContentGroup.DataSource on the inner group.','Use Strip style on the ActionPane.','Apply FieldsAndFieldGroups or TabularFields to the ContentGroup.'],
+dontList:['Don\'t replicate the page-level ActionPane here.','Don\'t combine a grid and field group in the same container.','Don\'t exceed 10 Strip buttons.'],
+figmaVariants:['Toolbar buttons: Generate/Print/Inquire/Actions','ContentGroup style: FieldsAndFieldGroups/TabularFields','Fields editable: Yes/No'],
+props:[['ActionPane.Style','Strip'],['ContentGroup.DataSource','Required when group contains bound fields'],['ContentGroup.SubPattern','FieldsAndFieldGroups or TabularFields']]},
+
+{id:'nested-sld',name:'Nested Simple List and Details',figma:'Subpattern/NestedSimpleListDetails',aot:'TabPage / Group (SubPattern=NestedSimpleListDetails)',status:'Seeded',
+purpose:'Embeds a self-contained list-and-detail panel inside a FastTab or TOC section. Grid on the left, detail fields on the right, local toolbar above. Use when a child collection has secondary fields that won\'t fit in a flat grid.',
+useWhen:'A FastTab needs to show a child collection where each child has secondary fields the user needs to read/edit without navigating away.',
+dontUseWhen:'Child collection has ≤4 fields — use plain Toolbar and List. Child collection needs its own detail form — link to it instead.',
+anatomy:'TabPage (or Group)\n├── ActionPane (Style=Strip)  — Add / Remove / actions\n└── ContainerBody (Group, Cols=2)\n    ├── ListContainer\n    │   └── Grid  — navigation list\n    └── DetailsContainer\n        ├── DetailsHeader  — key identity fields\n        └── DetailsGroup  — secondary fields (FieldsAndFieldGroups)',
+rules:['Set DataSource.InsertIfEmpty=No on the child data source.','Match ActionPane.DataSource to the grid\'s data source.','Show 2–4 columns in the navigation grid.','No Add/Remove for read-only child data sources.','Don\'t make both the grid and detail panel editable simultaneously.'],
+doList:['Set InsertIfEmpty=No on the child DS.','Show only 2–4 nav columns in the left grid.','Apply FieldsAndFieldGroups to DetailsGroup.'],
+dontList:['Don\'t use if the child collection has ≤4 fields.','Don\'t add Add/Remove for read-only DSs.','Don\'t nest more than 2 levels of list-and-details.'],
+figmaVariants:['Editable: Yes/ReadOnly','Detail depth: HeaderOnly/HeaderAndGroup'],
+props:[['Grid.DataSource','Secondary (child) data source'],['DataSource.InsertIfEmpty','No'],['ActionPane.DataSource','Must match grid DS'],['DetailsGroup.SubPattern','FieldsAndFieldGroups (typical)']]},
+
+{id:'custom-filter-group',name:'Custom Filter Group',figma:'Subpattern/CustomFilterGroup (+ /CustomAndQuickFilters)',aot:'Group (SubPattern=CustomFilters or CustomAndQuickFilters)',status:'Seeded',
+purpose:'A row of 1–5 pre-configured filter controls (dropdowns, date pickers, lookups) positioned above a Grid. Provides focused fast filtering without the full FilterPane. Two variants: CustomFilters (QuickFilter optional) and CustomAndQuickFilters (QuickFilter mandatory).',
+useWhen:'The user frequently filters by the same 1–5 criteria (Status, Date range, Customer group). Complements the QuickFilter and FilterPane.',
+dontUseWhen:'More than 5 filter criteria needed — use FilterPane. Form is a workspace — use Filters and Toolbar instead.',
+anatomy:'CustomFilter (Group)\n├── QuickFilter (optional / mandatory)\n├── FilterGroup (Group, 0..N)\n│   └── FilterField (1..N)\n└── FilterField (0..N)',
+rules:['Leave DataSource and DataField EMPTY on all filter controls — they drive QueryFilter programmatically.','Use QueryFilter, not QueryBuildRange (QBR breaks on outer-joined fields).','Limit to 5 filter controls.','QuickFilter is first child in CustomAndQuickFilters variant.','Prefer ComboBox for status/category, DateEdit for date ranges, ReferenceGroup for FK fields.'],
+doList:['Leave DataSource/DataField blank on all filter controls.','Use QueryFilter in the modified() X++ handler.','Limit to 5 controls.'],
+dontList:['Don\'t bind filter controls to a DataSource.','Don\'t use QueryBuildRange.','Don\'t exceed 5 filter controls.'],
+figmaVariants:['Variant: CustomFilters/CustomAndQuickFilters','Filter count: 1/2/3/4–5','Apply button: Yes/No'],
+props:[['Filter control DataSource','Must be EMPTY','Filter control DataField','Must be EMPTY'],['X++ handler','modified() → QueryFilter add on element.query()',''],['QuickFilter position','First child in CustomAndQuickFilters variant','']]},
+
+{id:'tabular-fields',name:'Tabular Fields',figma:'Subpattern/TabularFields',aot:'TabPage / Group (SubPattern=TabularFields)',status:'Seeded',
+purpose:'Structured row-column layout of read-only fields for totals, balances, and aggregates. Visual alignment across rows is more important than responsive reflow. Not an editable grid — for editable records use Toolbar and List.',
+useWhen:'The container shows journal balances, order totals, voucher subtotals, or similar static aggregate rows where column alignment matters.',
+dontUseWhen:'Any field is editable — use Fields and Field Groups. The data is a record collection — use Toolbar and List.',
+anatomy:'TabPage (or Group)\n├── Row 1 Group (Label + Value, AllowEdit=No)\n├── Row 2 Group\n└── Row N Group',
+rules:['All value fields AllowEdit=No — read-only only.','Right-align numeric values; left-align labels.','3–8 rows typical; beyond 8 consider a Grid.','Currency symbol and amount in the same row.','Subtotal before grand total; add a visual separator before the grand total row.'],
+doList:['Set AllowEdit=No on every value field.','Right-align all numeric amounts.','Add a visual separator before the grand total row.'],
+dontList:['Don\'t mix editable and read-only fields.','Don\'t use more than 8 rows without considering a Grid.','Don\'t put action buttons inside — wrap with Toolbar and Fields if actions are needed.'],
+figmaVariants:['Rows: 3/5/8','Style: Plain/WithSubtotalDivider','Values: Currency/Quantity/Mixed'],
+props:[['Field.AllowEdit','No on all value fields'],['Row Group.ColumnsMode','Fixed (typically 2 — label + value)']]},
+
+{id:'fill-text',name:'Fill Text',figma:'Subpattern/FillText',aot:'TabPage / Group (SubPattern=FillText)',status:'Seeded',
+purpose:'Container subpattern for a single input control that expands to fill the full available width and height — typically a multi-line StringEdit for notes, descriptions, or memo fields. Removes the label column padding so the input spans edge-to-edge.',
+useWhen:'A FastTab contains exactly one full-width memo / notes field that should expand to fill the container.',
+dontUseWhen:'More than one field is needed — use Fields and Field Groups. The field is a single-line StringEdit (fill layout is wasted on single-line inputs).',
+anatomy:'TabPage (or Group)\n└── StringEdit (MultiLine=Yes)\n    ├── Label (suppressed or top-positioned)\n    └── Multi-line text area (full width)',
+rules:['One control only — if a second field is needed, switch to FieldsAndFieldGroups.','StringEdit.MultiLine=Yes is mandatory.','Set AutoSizeHeight=Yes so the control grows with content.','Name the FastTab after the field concept ("Notes") — it serves as the implied label.','Notes fields are almost always optional; set Mandatory=No.'],
+doList:['Set MultiLine=Yes and AutoSizeHeight=Yes.','Name the FastTab after the field concept.','Set AllowEdit=No on posted records.'],
+dontList:['Don\'t add a second field — the subpattern supports exactly one.','Don\'t use for single-line StringEdit fields.','Don\'t suppress the FastTab caption.'],
+figmaVariants:['State: Empty/With content/ReadOnly','Height: Compact/Standard/Tall'],
+props:[['StringEdit.MultiLine','Yes'],['StringEdit.AutoSizeHeight','Yes'],['StringEdit.DisplayHeight','4 (initial rows)']]},
+
+{id:'list-panel',name:'List Panel',figma:'Subpattern/ListPanel',aot:'Group (SubPattern=ListPanel)',status:'Seeded',
+purpose:'The two-list "move items between" UI: Available (left) → Selected (right), with Add/Remove transfer buttons in the centre. Use when the user\'s primary task is composing a selection set from a source collection.',
+useWhen:'The user needs to choose multiple items from a maintained list and the selected set is distinctly managed (role assignments, report columns, entity selections).',
+dontUseWhen:'A simple multi-select grid is sufficient. The available list has hundreds of rows — use the Advanced Selection form pattern at dialog level.',
+anatomy:'[Container]\n├── CustomFilterGroup (optional)\n└── ListPanelGroup\n    ├── AvailablePanel (Grid/ListBox)\n    ├── ActionPanel\n    │   ├── Add →\n    │   ├── Remove ←\n    │   ├── AddAll →→ (optional)\n    │   └── RemoveAll ←← (optional)\n    ├── SelectedPanel (Grid/ListBox)\n    └── MoveUpDownPanel (optional)\n        ├── MoveUp ↑\n        └── MoveDown ↓',
+rules:['Double-click on Available transfers to Selected; double-click on Selected removes it.','Show the same columns in both lists (ID + Name minimum).','Show item counts in list headers ("Available (42)", "Selected (3)").','Include MoveUpDown only when sequence is meaningful.','Include AddAll/RemoveAll only for short available lists (≤30 rows).'],
+doList:['Support double-click transfer in both directions.','Show item counts in list headers.','Include MoveUpDown only when order is semantically meaningful.'],
+dontList:['Don\'t show different columns in Available vs Selected.','Don\'t include MoveUpDown for unordered selections.'],
+figmaVariants:['AddAll: Yes/No','MoveUpDown: Yes/No','Filter: None/WithCustomFilter'],
+props:[['Available list DS','Source table (all available records)'],['Selected list DS','Junction/target table (user\'s selection)'],['MoveUp/Down','Only when sequence field exists on selected DS']]},
+
+{id:'h-fields-buttons',name:'Horizontal Fields and Buttons Group',figma:'Subpattern/HorizontalFieldsAndButtonsGroup',aot:'Group (SubPattern=HorizontalFieldsAndButtonsGroup)',status:'Seeded',
+purpose:'A horizontal band placing read-only summary fields on the left and action buttons on the right, all on a single line. Canonical use: the line-view header summary band in a Details Transaction — key header values visible while the user works on lines.',
+useWhen:'The form needs a compact header summary band with read-only key values on the left and document-level action buttons on the right.',
+dontUseWhen:'Any field is editable — this band is always read-only. Actions are line-scoped — put them in the line grid\'s Strip toolbar.',
+anatomy:'Group (HorizontalFieldsAndButtonsGroup)\n├── SummaryFields (Group, left-aligned)\n│   └── Field (0..N, AllowEdit=No)\n└── ButtonGroup (right-aligned)\n    └── MenuItemButton | MenuButton (0..N)',
+rules:['All fields AllowEdit=No — always read-only.','3–6 summary fields; 1–5 buttons.','Actions are document-level — not line-scoped.','Right-align numeric summary values.','Use MenuButton for secondary/infrequent actions.'],
+doList:['Show 3–6 key header values.','Right-align numeric amounts.','Use MenuButton for secondary actions.'],
+dontList:['Don\'t add editable fields.','Don\'t exceed 6 summary fields or 5 buttons.','Don\'t duplicate info visible in the RecordTitle or ActionPane tabs.'],
+figmaVariants:['Field count: 3/4/5/6','Button count: 1/2/3/4–5'],
+props:[['SummaryFields.AllowEdit','No on all fields'],['ButtonGroup alignment','Right — framework handles automatically']]},
+
+{id:'filters-toolbar',name:'Filters and Toolbar',figma:'Subpattern/FiltersAndToolbar/Inline (+ /Stacked)',aot:'Group (SubPattern=FiltersAndToolbar/Inline or /Stacked)',status:'Seeded',
+purpose:'Workspace-specific subpattern combining filter controls and action buttons in a band at the top of a Panorama section. Inline variant: filters and buttons on one row. Stacked variant: filters on top, buttons below.',
+useWhen:'A workspace Panorama section needs section-level filter controls and/or action buttons above its content.',
+dontUseWhen:'The form is not a workspace — use Custom Filter Group instead. For workspace-wide filtering — use Workspace Page Filter Group.',
+anatomy:'FilterAndToolbarGroup\n├── FilterGroup (filter controls left)\n└── ButtonGroup (action buttons right)\n\nStacked variant:\n├── FilterGroup (top row)\n└── ToolbarGroup (row below)',
+rules:['Leave DataSource and DataField EMPTY on all filter controls.','Button NeedsRecord=No — actions are workspace-scoped, not record-scoped.','Max 5 filter controls; max 5 buttons. Use Inline for ≤3+≤3; Stacked when one row is too crowded.','Don\'t duplicate the workspace-level filter from WorkspacePageFilterGroup.'],
+doList:['Use Inline for simple cases (≤3 filters + ≤3 buttons).','Make actions workspace-scoped, not record-scoped.'],
+dontList:['Don\'t bind filter controls to a DataSource.','Don\'t use on non-workspace forms.','Don\'t duplicate the workspace-level filter.'],
+figmaVariants:['Layout: Inline/Stacked','Filter count: 1/2/3/4–5','Apply button: Yes/No'],
+props:[['Filter controls DataSource','Must be EMPTY'],['Button NeedsRecord','No (workspace-scoped)']]},
+
+{id:'workspace-filter-group',name:'Workspace Page Filter Group',figma:'Subpattern/WorkspacePageFilterGroup',aot:'Group (SubPattern=WorkspacePageFilterGroup)',status:'Seeded',
+purpose:'The top-level filter bar on an Operational Workspace that drives all Panorama sections simultaneously. When the user changes a filter here (date period, legal entity), every tile, chart, list, and related-links section refreshes.',
+useWhen:'An Operational Workspace has global filter criteria that all sections should respect.',
+dontUseWhen:'The filter only applies to one section — use Filters and Toolbar at section level instead.',
+anatomy:'WorkspacePageFilterGroup (Group)\n├── Filter 1 (ComboBox / ReferenceGroup / DateEdit)\n├── Filter 2\n├── Filter N  (up to ~5)\n└── Apply button (optional)',
+rules:['Leave DataSource and DataField EMPTY on all filter controls.','2–3 filters cover most cases: date period + legal entity is the most common combination.','Persist filter values using SysLastValue.','Default to current period + current legal entity.','All workspace sections must respond to the workspace filter.'],
+doList:['Keep to 2–3 filters.','Persist values using SysLastValue.','Default to current period + current legal entity.'],
+dontList:['Don\'t bind filter controls to a DataSource.','Don\'t add more than 5 controls.','Don\'t reset filters on every form open.'],
+figmaVariants:['Filter count: 2/3/4','Apply button: Yes/No','Date filter style: Period picker/Date range'],
+props:[['Filter controls DataSource','Must be EMPTY'],['SysLastValue','Persist per-user filter state across sessions'],['X++ refresh','modified() → element.updateDesign("filter")']]},
+
+{id:'section-workspace',name:'Workspace Section subpatterns',figma:'Subpattern/Section/Tiles, /Chart, /TabbedList, /RelatedLinks, /Stacked, /PowerBI',aot:'PanoramaSection content Group',status:'Seeded',
+purpose:'Six subpattern types for the content inside each Panorama section of an Operational Workspace: Tiles (KPI counts/amounts), Chart (embedded chart), Tabbed List (2–4 tab-filtered grids), Related Links (navigation anchors), Stacked (grid + chart), PowerBI (embedded Power BI report).',
+useWhen:'Populating a Panorama section in an Operational Workspace. Choose the type that matches the data: counts→Tiles, trends→Chart, actionable lists→TabbedList, navigation→RelatedLinks.',
+dontUseWhen:'The form is not an Operational Workspace.',
+anatomy:'SectionTiles: TileControl (1..8) — KPI tiles\nSectionChart: ChartControl — one chart\nSectionTabbedList: Tab (2..4) → Grid per tab\nSectionRelatedLinks: MenuItemButton (4..15) — anchor links\nSectionStacked: Grid (top) + Chart (bottom)\nPowerBISection: PowerBIPart',
+rules:['Section order: Tiles → Tabbed List → Charts → Related Links.','Maximum 5 Panorama sections per workspace.','Section title is a noun phrase ("Key metrics") — not a verb.','Every section must respond to the Workspace Page Filter.','Tiles: clicking navigates to a filtered list. Related Links: noun-phrase labels only. TabbedList: max 4 tabs, show count badge per tab.'],
+doList:['Lead with Tiles for actionable counts.','Show Related Links last.','Include count badges on Tabbed List tabs.','Link charts to a full report or analysis page.'],
+dontList:['Don\'t exceed 5 Panorama sections.','Don\'t mix section types in one section.','Don\'t use raw transactional tables as chart data sources (use aggregate queries).','Don\'t add editable fields in workspace grids.'],
+figmaVariants:['Type: Tiles/Chart/TabbedList/RelatedLinks/Stacked/PowerBI','Tile count: 2/4/6/8','Tab count: 2/3/4'],
+props:[['SectionTiles','TileControl.DataMethod = aggregate display method'],['SectionChart','ChartControl data source = aggregate query / SSAS cube'],['SectionTabbedList','Grid.EditTrigger = Never'],['PowerBISection','Requires Power BI integration setup in environment']]},
+
+{id:'dimension-entry',name:'Dimension Entry Control',figma:'Subpattern/DimensionEntryControl',aot:'DimensionEntry control in TabPage / Group',status:'Seeded',
+purpose:'Container subpattern for financial dimension entry in a form. Wraps the SegmentedEntry control with proper controller binding. Use for entering default dimensions (no main account) or full ledger account combinations (main account + dimensions).',
+useWhen:'A form field requires the user to enter or review financial dimension values or a ledger account combination.',
+dontUseWhen:'The field is a filter expression (budget control, reporting) — use Dimension Expression Builder instead.',
+anatomy:'TabPage / Group\n└── DimensionEntry (custom control)\n    ├── Segment: Main account (if LedgerDimension)\n    ├── Separator\n    ├── Segment: Dimension 1 (e.g. Department)\n    └── Segment: Dimension N\n       (count set by Chart of Accounts config)',
+rules:['Choose the correct controller: DimensionDefaultingController (default dims), LedgerDimensionAccountController (ledger account), DimensionDynamicAccountController (dynamic type).','Call parmAttributeSetDataSource() to bind the control — missing = control renders blank.','Call controller.allowEdit(false) on posted/confirmed records.','Never replicate with individual StringEdit fields.','Annotate mocks: "Segment count depends on Chart of Accounts configuration."'],
+doList:['Choose the correct controller class for the field purpose.','Call allowEdit(false) when the record is posted.','Show realistic account combinations in mocks.'],
+dontList:['Don\'t replicate with individual StringEdit fields.','Don\'t hardcode segment labels — they vary by chart of accounts.','Don\'t allow editing after the record is posted.','Don\'t use DefaultingController for ledger account fields.'],
+figmaVariants:['Segment count: 2/3/4 (representative)','Controller type: DefaultDimension/LedgerDimension/DynamicAccount','State: Rest/Active/ReadOnly'],
+props:[['Controller class','DimensionDefaultingController / LedgerDimensionAccountController / DimensionDynamicAccountController'],['parmAttributeSetDataSource()','Binds control to the dimension field — required'],['allowEdit(false)','Call on controller when record is posted']]},
+
+{id:'dimension-expr',name:'Dimension Expression Builder',figma:'Subpattern/DimensionExpressionBuilder',aot:'DimensionExpressionBuilderControl in Group',status:'Seeded',
+purpose:'Specialised composite for building financial dimension filter expressions — range queries that include or exclude dimension combinations. Used in budget control rules, financial reporting row/column definitions, and ledger settlement configuration. Not for transactional entry.',
+useWhen:'A finance configuration form requires the user to define which account/dimension combinations a rule or report filter applies to.',
+dontUseWhen:'The user is entering dimension values on a transaction — use Dimension Entry Control instead.',
+anatomy:'Group (DimensionExpressionBuilder)\n├── DimensionSelector (ComboBox: Main account / Dept / …)\n├── OperatorSelector (ComboBox: Include / Exclude)\n├── ValueEntry (range input: 110100..110999)\n├── AddTokenButton\n├── ExpressionDisplay (StringEdit, AllowEdit=No)\n└── ClearButton',
+rules:['Finance configuration only — not for transactional entry.','Include Help text explaining expression syntax: range (110100..110999), wildcard (*), exclude (-).','Show the accumulated expression in a read-only StringEdit below the builder.','Validate each token incrementally — show inline error on invalid ranges.','Provide a Clear button to reset from scratch.'],
+doList:['Include Help text for expression syntax.','Show accumulated expression in a read-only field.','Provide a Clear button.','Validate tokens in real time.'],
+dontList:['Don\'t use for transactional dimension entry.','Don\'t suppress validation on range inputs.','Don\'t allow saving if the expression contains invalid tokens.'],
+figmaVariants:['State: Empty/With expression/Error'],
+props:[['DimensionSelector','ComboBox from DimensionAttribute table'],['ValueEntry','DimensionExpressionBuilderControl (custom control class)'],['ExpressionDisplay','StringEdit.AllowEdit=No — shows accumulated expression']]},
+];
+
+const SECTIONS=[
+  {key:'patterns',label:'Form Patterns',data:PATTERNS},
+  {key:'controls',label:'Controls',data:CONTROLS},
+  {key:'composites',label:'Composites',data:COMPOSITES},
+  {key:'subpatterns',label:'Subpatterns',data:SUBPATTERNS},
+];
+
+let currentId=null,collapsed={};
+
+function buildNav(filter){
+  const nav=document.getElementById('nav');nav.innerHTML='';
+  SECTIONS.forEach(s=>{
+    const items=filter?s.data.filter(d=>d.name.toLowerCase().includes(filter)||(d.figma||'').toLowerCase().includes(filter)):s.data;
+    if(!items.length)return;
+    const isColl=collapsed[s.key];
+    const el=document.createElement('div');el.className='nav-sec';
+    el.innerHTML=`<div class="sec-hd" data-key="${s.key}"><span class="sec-label">${s.label}</span><span class="sec-count">${items.length}</span></div><div class="sec-items${isColl?' hidden':''}" id="sec-${s.key}">${items.map(item=>`<div class="nav-item${currentId===item.id?' active':''}" data-id="${item.id}" data-sec="${s.key}"><span class="nav-item-name">${item.name}</span><span class="dot ${(item.status||'todo').toLowerCase()}"></span></div>`).join('')}</div>`;
+    nav.appendChild(el);
+  });
+  nav.querySelectorAll('.sec-hd').forEach(h=>h.addEventListener('click',()=>{collapsed[h.dataset.key]=!collapsed[h.dataset.key];buildNav(filter);}));
+  nav.querySelectorAll('.nav-item').forEach(it=>it.addEventListener('click',()=>navigate(it.dataset.id,it.dataset.sec)));
+}
+
+function secTag(k){return{patterns:'Form Pattern',controls:'Control',composites:'Composite',subpatterns:'Subpattern'}[k]||k}
+
+function renderWireframe(id){
+  const chr=`<div class="wf-chrome"><span class="wf-cd"></span><span class="wf-cd"></span><span class="wf-cd"></span><span style="margin-left:6px;opacity:.55">Dynamics 365 Finance</span></div>`;
+  const ap=(tabs,btns=[])=>`<div class="wf-ap">${tabs.map((t,i)=>`<span class="wf-abt${i===0?' on':''}">${t}</span>`).join('')}<span style="flex:1"></span>${btns.map(b=>`<span class="wf-btn">${b}</span>`).join('')}</div>`;
+  const aps=(btns)=>`<div class="wf-ap" style="background:#F8FAFC;border-bottom:1px solid #BFDBFE">${btns.map(b=>`<span class="wf-btn">${b}</span>`).join('')}</div>`;
+  const rt=(id,desc,st,cat='g')=>`<div class="wf-rt"><div class="wf-rid">${id}${desc?` <span style="color:#94A3B8;font-weight:400">:</span> ${desc}`:''}${st?` <span style="color:#94A3B8;font-weight:400"> — </span><span class="wf-chip ${cat}">${st}</span>`:''}</div></div>`;
+  const wfbar=(st,cat='b')=>`<div class="wf-wfb"><span class="wf-chip ${cat}">${st}</span><span class="wf-btn" style="margin-left:4px">Submit</span><span class="wf-btn" style="opacity:.38">Approve</span><span class="wf-btn" style="opacity:.38">Reject</span><span style="flex:1"></span><span class="wf-btn">History</span></div>`;
+  const qf=()=>`<div class="wf-qf"><div class="wf-qi"></div><span class="wf-btn">Filters ▾</span></div>`;
+  const ftab=(title,fields,collapsed,summary='')=>`<div class="wf-ft"><div class="wf-fth">${title}${summary?` <span style="color:#64748B;font-weight:400;font-size:8px;margin-left:4px">${summary}</span>`:''}<span style="color:#93C5FD;margin-left:auto">${collapsed?'▸':'▾'}</span></div>${collapsed?'':'<div class="wf-ftb">'+fields.map(([l,v])=>`<div class="wf-f"><div class="wf-fl">${l}</div><div class="wf-fv">${v}</div></div>`).join('')+'</div>'}</div>`;
+  const grid=(cols,rows)=>`<div style="overflow-x:auto"><table class="wf-g"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,j)=>`<td${j===0?' class="lk"':''}>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  const fbox=(title,fields)=>`<div style="border-bottom:1px solid #BFDBFE"><div class="wf-shd">${title}</div><div class="wf-ftb">${fields.map(([l,v])=>`<div class="wf-f"><div class="wf-fl">${l}</div><div class="wf-fv" style="background:#F8FAFC">${v}</div></div>`).join('')}</div></div>`;
+  const f=(l,v)=>`<div class="wf-f"><div class="wf-fl">${l}</div><div class="wf-fv">${v}</div></div>`;
+  const note=(t)=>`<div class="wf-note">${t}</div>`;
+  const W=(content)=>`<div class="wf">${chr}${content}</div>`;
+
+  switch(id){
+    case 'list-page': return W(`
+      ${ap(['Sales orders','Sell','Inquire','General'],['New','Delete'])}
+      ${qf()}
+      <div class="wf-body">
+        <div class="wf-fp">
+          <div class="wf-shd">Filter</div>
+          <div style="padding:5px;display:flex;flex-direction:column;gap:4px">
+            ${f('Status','Open ▾')}${f('Customer','')}${f('Date from','')}
+            <span class="wf-btn" style="margin-top:3px;text-align:center">Apply</span>
+          </div>
+        </div>
+        <div class="wf-center">
+          ${grid(['Sales order','Customer','Name','Date','Amount','Status'],
+            [['SO-00001','US-001','Fabrikam','6/1','$12,500','Confirmed'],
+             ['SO-00002','US-002','Contoso','6/5','$3,200','Invoiced'],
+             ['SO-00003','US-003','Northwind','6/10','$8,750','Open']])}
+        </div>
+      </div>
+      ${note('First grid column (sales order) hyperlinks to the detail form. FilterPane optional for multi-criteria filtering.')}
+    `);
+
+    case 'details-master': return W(`
+      ${ap(['Customer','Sell','Collect','Inquire','Related','General'])}
+      ${wfbar('Draft','gr')}
+      ${rt('US-001','Fabrikam Inc.','Active','g')}
+      <div class="wf-body">
+        <div class="wf-left">
+          <div class="wf-shd">Customers</div>
+          ${grid(['Account','Name'],
+            [['US-001','Fabrikam'],['US-002','Contoso'],['US-003','Northwind']])}
+        </div>
+        <div class="wf-center">
+          ${ftab('General',[['Name','Fabrikam Inc.'],['Account','US-001'],['Currency','USD'],['Language','en-us']],false,'US-001 · USD')}
+          ${ftab('Addresses',[],true,'1 address')}
+          ${ftab('Credit and collections',[],true,'$50,000 limit')}
+          ${ftab('Sales order defaults',[],true,'')}
+        </div>
+        <div class="wf-fb">
+          <div class="wf-shd">Related info</div>
+          ${fbox('Sales totals',[['Open orders','3'],['YTD','$24,450']])}
+          ${fbox('Attachments',[['Files','2']])}
+        </div>
+      </div>
+      ${note('NavList (left) drives selection. First FastTab expanded; rest collapsed with summary fields. FactBox (right) collapsible.')}
+    `);
+
+    case 'details-transaction': return W(`
+      ${ap(['Sales order','Sell','Pick and pack','Invoice','Inquire','Related','General'])}
+      <div class="wf-ap" style="background:#F8FAFC;border-bottom:1px solid #BFDBFE;padding:0 8px;gap:0">
+        <span style="padding:3px 12px;border-right:1px solid #BFDBFE;font-size:9px">Grid</span>
+        <span style="padding:3px 12px;border-right:1px solid #BFDBFE;font-size:9px;background:#2563EB;color:#fff">Header</span>
+        <span style="padding:3px 12px;font-size:9px">Lines</span>
+      </div>
+      ${rt('SO-00001','Fabrikam Inc.','Confirmed','g')}
+      <div class="wf-body">
+        <div class="wf-left">
+          <div class="wf-shd">Orders</div>
+          ${grid(['Order','Cust.'],
+            [['SO-001','US-001'],['SO-002','US-002'],['SO-003','US-003']])}
+        </div>
+        <div class="wf-center">
+          ${ftab('General',[['Customer','US-001 Fabrikam'],['Delivery date','6/15/2026'],['Currency','USD']],false,'US-001 · USD')}
+          ${ftab('Delivery',[],true,'')}
+          ${ftab('Payment',[],true,'Net 30')}
+        </div>
+        <div class="wf-fb">
+          <div class="wf-shd">FactBox</div>
+          ${fbox('Order totals',[['Lines','5'],['Total','$12,500']])}
+          ${fbox('Customer info',[['Currency','USD']])}
+        </div>
+      </div>
+      ${note('Three views (Grid / Header / Lines) are all required. Line detail uses Standard Tabs, not FastTabs.')}
+    `);
+
+    case 'simple-details': return W(`
+      ${ap(['Setup'],['Save'])}
+      <div style="padding:3px">
+        ${ftab('General',[['Legal entity','USSI'],['Document prefix','INV-'],['Auto-post','☑']],false,'')}
+        ${ftab('Number sequences',[['Invoice','INV-######'],['Credit note','CN-######']],false,'')}
+        ${ftab('Posting',[],true,'')}
+        ${ftab('Approval',[],true,'')}
+      </div>
+      ${note('No navigation list — record is always pre-selected (parameters / profile forms).')}
+    `);
+
+    case 'simple-list': return W(`
+      ${aps(['+ New','🗑 Delete'])}
+      ${grid(['Code','Name','Description','Days','Blocked'],
+        [['NET30','Net 30 days','Payment due in 30 days','30','No'],
+         ['NET60','Net 60 days','Payment due in 60 days','60','No'],
+         ['IMMD','Immediate','Due on receipt','0','No']])}
+      ${note('All editing is inline — no separate edit form. New row added at bottom; first field gains focus.')}
+    `);
+
+    case 'simple-list-details': return W(`
+      ${ap(['Payment terms'],['New','Delete'])}
+      <div class="wf-body">
+        <div class="wf-left">
+          <div class="wf-shd">Payment terms</div>
+          ${grid(['Code','Name'],
+            [['NET30','Net 30'],['NET60','Net 60'],['IMMD','Immediate']])}
+        </div>
+        <div class="wf-center" style="padding:3px">
+          ${ftab('General',[['Code','NET30'],['Name','Net 30 days'],['Days','30'],['Cash disc.','0%']],false,'')}
+          ${ftab('Cash discount schedule',[],true,'')}
+        </div>
+      </div>
+      ${note('Left list drives selection; right detail panel responds synchronously. ≤5 FastTabs in right panel.')}
+    `);
+
+    case 'table-of-contents': return W(`
+      ${ap(['Parameters'])}
+      <div class="wf-body" style="min-height:110px">
+        <div class="wf-vtl">
+          <div class="wf-vti on">General</div>
+          <div class="wf-vti">Number sequences</div>
+          <div class="wf-vti">Posting</div>
+          <div class="wf-vti">Credit &amp; collections</div>
+          <div class="wf-vti">Sales tax</div>
+        </div>
+        <div class="wf-center" style="padding:3px">
+          <div class="wf-shd" style="margin-bottom:3px">General</div>
+          ${ftab('Setup',[['Currency','USD'],['UOM','Each'],['Auto-confirm','☑']],false,'')}
+          ${ftab('Dimensions',[['Dim set','OU-Dept'],['Summary update','Invoice']],false,'')}
+        </div>
+      </div>
+      ${note('Vertical tab strip = table of contents. Each TabPage is a distinct configuration section. Auto-saves (parameters) — no explicit Save needed.')}
+    `);
+
+    case 'operational-workspace': return W(`
+      <div class="wf-ap" style="background:#EFF6FF;border-bottom:1px solid #BFDBFE;padding:3px 8px;gap:8px">
+        <span class="wf-fl">Date range:</span><div class="wf-qi" style="width:100px;flex:none"></div>
+        <span class="wf-fl">Legal entity:</span><div class="wf-qi" style="width:80px;flex:none;padding:1px 5px;font-size:9px">USSI ▾</div>
+        <span class="wf-btn">Apply</span>
+      </div>
+      <div class="wf-pano">
+        <div class="wf-psec">
+          <div class="wf-shd">Key metrics</div>
+          <div style="display:flex;gap:4px;padding:5px">
+            <div class="wf-tile"><div class="wf-tv">24</div><div class="wf-tl">Open orders</div></div>
+            <div class="wf-tile"><div class="wf-tv" style="color:#D97706">7</div><div class="wf-tl">On hold</div></div>
+          </div>
+        </div>
+        <div class="wf-psec">
+          <div class="wf-shd">Overdue invoices</div>
+          ${grid(['Customer','Amt','Days'],
+            [['Fabrikam','$1,200','5'],['Contoso','$3,400','12']])}
+        </div>
+        <div class="wf-psec" style="min-width:130px">
+          <div class="wf-shd">Related links</div>
+          <div style="padding:5px;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:9px;color:#2563EB;text-decoration:underline">All customers</span>
+            <span style="font-size:9px;color:#2563EB;text-decoration:underline">Customer aging</span>
+            <span style="font-size:9px;color:#2563EB;text-decoration:underline">Credit management</span>
+          </div>
+        </div>
+      </div>
+      ${note('Sections scroll horizontally (Panorama). Workspace filter drives all sections simultaneously. Links navigate — no in-workspace editing.')}
+    `);
+
+    case 'dialog': return `<div class="wf">
+      ${chr}
+      <div class="wf-ov">
+        <div class="wf-dlg">
+          <div class="wf-dlgh">Post journal</div>
+          <div class="wf-dlgb">
+            ${f('Journal','GJ-00042')}${f('Date','6/15/2026')}${f('Description','Month-end close')}${f('Post to subledger','☑')}
+          </div>
+          <div class="wf-dlgf">
+            <span class="wf-btn" style="color:#64748B;border-color:#94A3B8">Cancel</span>
+            <span class="wf-btn" style="background:#2563EB;color:#fff;border-color:#2563EB">Post</span>
+          </div>
+        </div>
+      </div>
+      ${note('Title = verb phrase ("Post journal", not "Journal posting"). OK button carries the verb ("Post"). Cancel always present.')}
+    </div>`;
+
+    case 'drop-dialog': return `<div class="wf">
+      ${chr}
+      <div style="padding:8px">
+        <span class="wf-btn" style="background:#2563EB;color:#fff;border-color:#2563EB">Confirm order ▾</span>
+        <div class="wf-drop" style="margin-top:2px">
+          <div style="font-weight:700;margin-bottom:7px;font-size:10px;color:#0F172A">Confirm order</div>
+          ${f('Confirmation date','6/15/2026')}
+          <div style="height:4px"></div>
+          ${f('Send confirmation','☑')}
+          <div style="height:4px"></div>
+          ${f('Print','☐')}
+          <div style="margin-top:8px;display:flex;justify-content:flex-end">
+            <span class="wf-btn" style="background:#2563EB;color:#fff;border-color:#2563EB">OK</span>
+          </div>
+        </div>
+      </div>
+      ${note('Max 7 fields. No Cancel button — Escape and click-outside dismiss. OK is right-aligned, verb-labelled.')}
+    </div>`;
+
+    case 'lookup': return `<div class="wf">
+      ${chr}
+      <div class="wf-ov" style="padding:8px">
+        <div class="wf-dlg" style="margin:0;width:100%">
+          <div class="wf-dlgh">Select customer</div>
+          ${qf()}
+          <div class="wf-body" style="min-height:70px">
+            <div class="wf-center">
+              ${grid(['Account','Name','Group','Currency'],
+                [['US-001','Fabrikam','30','USD'],['US-002','Contoso','10','USD'],['US-003','Northwind','20','EUR']])}
+            </div>
+            <div class="wf-fb" style="width:130px;min-width:130px">
+              <div class="wf-shd">Preview</div>
+              <div style="padding:5px;display:flex;flex-direction:column;gap:4px">
+                ${f('Name','Fabrikam Inc.')}${f('City','Seattle')}${f('Limit','$50,000')}
+              </div>
+            </div>
+          </div>
+          <div class="wf-dlgf">
+            <span class="wf-btn" style="color:#64748B;border-color:#94A3B8">Cancel</span>
+            <span class="wf-btn" style="background:#2563EB;color:#fff;border-color:#2563EB">Select</span>
+          </div>
+        </div>
+      </div>
+      ${note('Double-click (or Enter) confirms and closes. Grid is always read-only. QuickFilter strongly recommended for tables with >50 rows.')}
+    </div>`;
+
+    case 'factbox': return `<div class="wf">
+      ${chr}
+      <div class="wf-body" style="min-height:130px">
+        <div class="wf-center" style="display:flex;align-items:center;justify-content:center;opacity:.3">
+          <span style="font-size:9px">← Form content area</span>
+        </div>
+        <div class="wf-fb" style="width:180px;min-width:180px">
+          <div class="wf-shd">Related info ‹</div>
+          ${fbox('Sales totals',[['Open orders','3'],['YTD','$24,450'],['Remaining','$25,550']])}
+          ${fbox('Transactions',[['Last invoice','5/30/2026'],['Amount','$3,200']])}
+          ${fbox('Attachments',[['Files','2']])}
+        </div>
+      </div>
+      ${note('Always read-only. "More…" links open related records in their own form. Framework auto-adds the Attachments FactBox.')}
+    </div>`;
+
+    case 'factbox-panel': return W(`
+      <div class="wf-body" style="min-height:150px">
+        <div class="wf-center" style="display:flex;align-items:center;justify-content:center;min-height:150px">
+          <div style="opacity:.28;text-align:center">
+            <div style="font-size:11px;font-weight:700;margin-bottom:4px">Host form body</div>
+            <div style="font-size:9px">Details Master / Details Transaction / List Page</div>
+          </div>
+        </div>
+        <div class="wf-fb" style="width:200px;min-width:200px">
+          <div class="wf-shd">Related info ‹</div>
+          <div class="wf-ft">
+            <div class="wf-fth" style="justify-content:space-between">
+              <span>Customer statistics</span><span style="color:#93C5FD">▾</span>
+            </div>
+            <div class="wf-ftb" style="flex-direction:column;gap:4px">
+              ${f('Open orders','3')}${f('YTD revenue','$24,450')}${f('Credit remaining','$25,550')}
+              <span style="font-size:9px;color:#2563EB;text-decoration:underline;margin-top:2px">Customer transactions →</span>
+            </div>
+          </div>
+          <div class="wf-ft">
+            <div class="wf-fth" style="justify-content:space-between">
+              <span>Recent invoices</span><span style="color:#93C5FD">▸</span>
+            </div>
+          </div>
+          <div class="wf-ft">
+            <div class="wf-fth" style="justify-content:space-between">
+              <span>Contacts (2)</span><span style="color:#93C5FD">▸</span>
+            </div>
+          </div>
+          <div class="wf-ft" style="opacity:.55">
+            <div class="wf-fth" style="justify-content:space-between">
+              <span>Attachments (1)</span><span style="color:#93C5FD">▸</span>
+            </div>
+          </div>
+          <div class="wf-note" style="border-top:none">System FactBox — auto-injected ↑</div>
+        </div>
+      </div>
+      ${note('Lead FactBox expanded by default; rest collapsed. Attachments is framework-injected — last in the panel. "(More…)" links open the backing form.')}
+    `);
+
+    case 'action-pane': return W(`
+      <div style="padding:4px">
+        <div class="wf-shd" style="margin-bottom:3px">Style = Standard (page-level)</div>
+        ${ap(['Sales order','Sell','Pick and pack','Invoice','Inquire','General'])}
+        <div style="background:#DBEAFE;border:1px solid #93C5FD;border-top:none;padding:5px 7px;display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">
+          <span class="wf-btn" style="background:#2563EB;color:#fff;border-color:#2563EB">Confirm order</span>
+          <span class="wf-btn">Cancel order</span>
+          <span class="wf-btn">Print confirmation</span>
+          <span style="border-left:1px solid #BFDBFE;margin:0 2px"></span>
+          <span class="wf-btn">Invoice ▾</span>
+        </div>
+        <div class="wf-shd" style="margin-bottom:3px">Style = Strip (local toolbar in a container)</div>
+        ${aps(['+ Add line','🗑 Remove','↑ Move up','↓ Move down'])}
+      </div>
+      ${note('System buttons (New, Delete, Save…) are framework-injected — never re-create them. Max 10 tabs, 8 buttons per group.')}
+    `);
+
+    case 'fast-tab': return W(`
+      <div style="padding:3px">
+        ${ftab('General',[['Account number','US-001'],['Account name','Fabrikam Inc.'],['Currency','USD'],['Language','en-us']],false,'US-001 · USD')}
+        ${ftab('Addresses',[],true,'1 address')}
+        ${ftab('Contact information',[],true,'info@fabrikam.com')}
+        ${ftab('Credit and collections',[],true,'$50,000 limit')}
+        ${ftab('Sales order defaults',[],true,'')}
+      </div>
+      ${note('First FastTab expanded by default. Promote 1–3 summary fields per tab (shown in grey text when collapsed).')}
+    `);
+
+    case 'grid': return W(`
+      <div style="padding:4px">
+        <div class="wf-shd" style="margin-bottom:3px">Tabular — column-based, bulk-edit</div>
+        ${grid(['☐','Sales order','Customer','Date','Amount','Status'],
+          [['☑','SO-00001','Fabrikam','6/1','$12,500','Confirmed'],
+           ['☐','SO-00002','Contoso','6/5','$3,200','Invoiced'],
+           ['☐','SO-00003','Northwind','6/10','$8,750','Open']])}
+        <div class="wf-shd" style="margin:6px 0 3px">List — compact, navigation / SidePanel</div>
+        <div style="max-width:200px">
+          ${grid(['Account','Name'],
+            [['US-001','Fabrikam Inc.'],['US-002','Contoso Ltd.'],['US-003','Northwind']])}
+        </div>
+      </div>
+      ${note('First column is hyperlinked (default action). ID column pinned left on wide grids. Multi-select via checkbox column.')}
+    `);
+
+    case 'filter-pane': return W(`
+      ${qf()}
+      <div class="wf-body" style="min-height:100px">
+        <div class="wf-fp">
+          <div class="wf-shd">Filter</div>
+          <div style="padding:5px;display:flex;flex-direction:column;gap:4px">
+            ${f('Status','Confirmed ▾')}${f('Date from','6/1/2026')}${f('Date to','6/30/2026')}${f('Customer','')}
+            <span class="wf-btn" style="margin-top:3px;text-align:center">Apply</span>
+          </div>
+        </div>
+        <div class="wf-center">
+          <div style="padding:3px 5px;display:flex;gap:5px;border-bottom:1px solid #BFDBFE">
+            ${f('Customer group','30 ▾')}${f('Salesperson','')}
+          </div>
+          ${grid(['Sales order','Customer','Amount','Status'],
+            [['SO-001','Fabrikam','$12,500','Confirmed'],['SO-002','Contoso','$3,200','Invoiced']])}
+        </div>
+      </div>
+      ${note('QuickFilter: single-column text search. CustomFilterGroup: dropdown criteria above grid. FilterPane: left panel for multi-criteria filtering.')}
+    `);
+
+    case 'group': return W(`
+      <div style="padding:6px;display:flex;flex-direction:column;gap:8px">
+        <div>
+          <div class="wf-fl" style="margin-bottom:4px">FrameType=None (default — no visible border)</div>
+          <div style="border:1.5px dashed #93C5FD;border-radius:3px;padding:5px">
+            <div class="wf-ftb" style="flex-wrap:wrap">
+              ${f('Field 1','Value')}${f('Field 2','Value')}${f('Field 3','Value')}${f('Field 4','Value')}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="wf-fl" style="margin-bottom:4px">FrameType=Box (dialogs only — shows caption + border)</div>
+          <div style="border:1.5px solid #93C5FD;border-radius:3px;overflow:hidden">
+            <div class="wf-shd">Delivery address</div>
+            <div class="wf-ftb">
+              ${f('Street','123 Main St')}${f('City','Seattle')}${f('State','WA')}${f('ZIP','98101')}
+            </div>
+          </div>
+        </div>
+      </div>
+      ${note('Dashed border shown here for illustration only — FrameType=None renders without any visible border. Set DataSource on every Group with bound fields.')}
+    `);
+
+    case 'tab': return W(`
+      <div style="padding:3px">
+        <div style="display:flex;border-bottom:1.5px solid #93C5FD;background:#EFF6FF">
+          <div style="padding:5px 12px;border-bottom:2.5px solid #2563EB;color:#2563EB;font-size:9px;font-weight:700;margin-bottom:-1.5px">General</div>
+          <div style="padding:5px 12px;font-size:9px;color:#64748B">Setup</div>
+          <div style="padding:5px 12px;font-size:9px;color:#64748B">Dimension</div>
+          <div style="padding:5px 12px;font-size:9px;color:#64748B">Financial</div>
+        </div>
+        <div class="wf-ftb" style="flex-wrap:wrap;padding:7px">
+          ${f('Journal name','GJ-Monthly')}${f('Description','Monthly GL')}${f('Journal type','Daily')}${f('Voucher series','GJV-######')}
+        </div>
+      </div>
+      ${note('Standard Tabs: max 7. Used in line detail area of Details Transaction and Dialog/WithTabs. Framework remembers last active tab per user.')}
+    `);
+
+    case 'input-fields': return W(`
+      <div style="padding:6px;display:flex;flex-direction:column;gap:7px">
+        <div class="wf-ftb" style="flex-wrap:wrap">
+          ${f('Name (String)','Aurora Travel')}
+          ${f('Amount (Real)','1,234.50')}
+          ${f('Quantity (Int)','42')}
+          ${f('Date','6/15/2026')}
+          ${f('Time','14:30')}
+          ${f('DateTime UTC','6/15/2026 14:30')}
+        </div>
+        <div style="border-top:1px solid #BFDBFE;padding-top:6px">
+          <div class="wf-fl" style="margin-bottom:4px">States</div>
+          <div class="wf-ftb">
+            <div class="wf-f"><div class="wf-fl">Mandatory</div><div class="wf-fv" style="border-color:#2563EB;border-width:2px"></div></div>
+            <div class="wf-f"><div class="wf-fl">Error</div><div class="wf-fv" style="border-color:#DC2626;background:#FEF2F2"></div></div>
+            <div class="wf-f"><div class="wf-fl">Read-only</div><div class="wf-fv" style="background:#F8FAFC;color:#64748B">Computed</div></div>
+            <div class="wf-f"><div class="wf-fl">Disabled</div><div class="wf-fv" style="opacity:.4;background:#F1F5F9"></div></div>
+          </div>
+        </div>
+      </div>
+      ${note('Right-align numeric fields (Real, Int). Bind to an EDT — never anonymous. Display methods + AllowEdit=No for computed read-only values.')}
+    `);
+
+    case 'buttons': return W(`
+      <div style="padding:7px;display:flex;flex-direction:column;gap:9px">
+        <div><div class="wf-fl" style="margin-bottom:4px">Primary / Default / Danger</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <span class="wf-btn" style="background:#2563EB;color:#fff;border-color:#2563EB">Confirm order</span>
+            <span class="wf-btn">Cancel order</span>
+            <span class="wf-btn">Print ▾</span>
+            <span class="wf-btn" style="border-color:#DC2626;color:#DC2626">Delete record</span>
+          </div>
+        </div>
+        <div><div class="wf-fl" style="margin-bottom:4px">Disabled (NeedsRecord=Yes, no record selected)</div>
+          <div style="display:flex;gap:5px">
+            <span class="wf-btn" style="opacity:.35">Confirm order</span>
+            <span class="wf-btn" style="opacity:.35">Cancel order</span>
+            <span class="wf-btn" style="opacity:.35">Print ▾</span>
+          </div>
+        </div>
+        <div><div class="wf-fl" style="margin-bottom:4px">DropDialogButton — inline drop</div>
+          <div style="display:flex;gap:5px">
+            <span class="wf-btn" style="background:#2563EB;color:#fff;border-color:#2563EB">Post journal ▾</span>
+          </div>
+        </div>
+      </div>
+      ${note('Verb-phrase labels, sentence case ("Confirm order", not "CONFIRM"). System buttons (New, Delete, Save) are framework-injected — never re-create.')}
+    `);
+
+    case 'combo': return W(`
+      <div style="padding:7px">
+        <div class="wf-ftb" style="flex-wrap:wrap;margin-bottom:10px">
+          ${f('Status (4 values)','Confirmed ▾')}
+          ${f('Currency','USD ▾')}
+          ${f('Payment terms','Net 30 ▾')}
+        </div>
+        <div class="wf-fl" style="margin-bottom:4px">Open dropdown state</div>
+        <div style="display:inline-block;position:relative">
+          <div class="wf-fv" style="border-color:#2563EB;border-width:2px;min-width:100px">Open ▾</div>
+          <div style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #93C5FD;border-top:none;border-radius:0 0 3px 3px;width:100%;z-index:1">
+            <div style="padding:2px 6px;font-size:9px;background:#DBEAFE;color:#1D4ED8">Open</div>
+            <div style="padding:2px 6px;font-size:9px">Confirmed</div>
+            <div style="padding:2px 6px;font-size:9px">Invoiced</div>
+            <div style="padding:2px 6px;font-size:9px">Cancelled</div>
+          </div>
+        </div>
+      </div>
+      ${note('Backed by AOT BaseEnum. Options are fixed at design time. 2–20 values max. NoYes enum → use CheckBox, not ComboBox.')}
+    `);
+
+    case 'boolean-controls': return W(`
+      <div style="padding:7px;display:flex;flex-direction:column;gap:10px">
+        <div><div class="wf-fl" style="margin-bottom:4px">CheckBox (NoYes field — positive label)</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:10px">
+              <div style="width:13px;height:13px;border:1.5px solid #2563EB;border-radius:2px;background:#2563EB;color:#fff;font-size:8px;display:flex;align-items:center;justify-content:center">✓</div>
+              Send confirmation email
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:10px">
+              <div style="width:13px;height:13px;border:1.5px solid #93C5FD;border-radius:2px;background:#fff"></div>
+              Block for further processing
+            </div>
+          </div>
+        </div>
+        <div><div class="wf-fl" style="margin-bottom:4px">RadioButton group (2–5 mutex enum values)</div>
+          <div style="border:1px solid #93C5FD;border-radius:3px;padding:5px 7px;display:inline-flex;flex-direction:column;gap:5px">
+            <div class="wf-fl" style="font-weight:700;margin-bottom:2px">Settlement priority</div>
+            ${['Interest (●)','Fee (○)','Principal (○)'].map(l=>`<div style="display:flex;align-items:center;gap:5px;font-size:9px">${l}</div>`).join('')}
+          </div>
+        </div>
+        <div><div class="wf-fl" style="margin-bottom:4px">Toggle (mode switch in toolbar)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:30px;height:17px;background:#2563EB;border-radius:9px;display:flex;align-items:center;justify-content:flex-end;padding-right:2px">
+              <div style="width:13px;height:13px;background:#fff;border-radius:50%"></div>
+            </div>
+            <span style="font-size:9px">Show all dimensions</span>
+          </div>
+        </div>
+      </div>
+      ${note('Label CheckBoxes with positive affirmation ("Send…", not "Don\'t suppress…"). RadioButton: 2–5 values. >5 → ComboBox.')}
+    `);
+
+    case 'lookup-control': return W(`
+      <div style="padding:7px;display:flex;flex-direction:column;gap:6px">
+        <div class="wf-fl" style="margin-bottom:2px">ReferenceGroup (modern FK — shows natural key)</div>
+        <div class="wf-ftb" style="flex-wrap:wrap">
+          <div class="wf-f" style="min-width:160px">
+            <div class="wf-fl">Customer account</div>
+            <div style="display:flex">
+              <div class="wf-fv" style="flex:1;border-radius:2px 0 0 2px">US-001 — Fabrikam Inc.</div>
+              <div class="wf-fv" style="border-left:none;border-radius:0 2px 2px 0;padding:1px 5px">▾</div>
+            </div>
+          </div>
+          <div class="wf-f" style="min-width:140px">
+            <div class="wf-fl">Warehouse (mandatory)</div>
+            <div style="display:flex">
+              <div class="wf-fv" style="flex:1;border-radius:2px 0 0 2px;border-color:#2563EB;border-width:2px"></div>
+              <div class="wf-fv" style="border-left:none;border-radius:0 2px 2px 0;padding:1px 5px;border-color:#2563EB;border-width:2px">▾</div>
+            </div>
+          </div>
+          <div class="wf-f" style="min-width:140px">
+            <div class="wf-fl">Vendor (read-only)</div>
+            <div class="wf-fv" style="background:#F8FAFC;color:#64748B">V-00042 — Fabrikam Supp.</div>
+          </div>
+        </div>
+        <div style="background:#FEF9C3;border:1px solid #FDE68A;border-radius:3px;padding:4px 7px;font-size:9px;margin-top:3px">
+          Ctrl+click (JumpRef) → navigates to the related record's own form
+        </div>
+      </div>
+      ${note('Use ReferenceGroup for all new FK fields. Show natural key (name/code), never the surrogate RecId. Leave JumpRef=Yes.')}
+    `);
+
+    case 'segmented-entry': return W(`
+      <div style="padding:7px;display:flex;flex-direction:column;gap:8px">
+        <div>
+          <div class="wf-fl" style="margin-bottom:4px">Ledger account — LedgerDimensionAccountController (3-segment)</div>
+          <div class="wf-seg">
+            <div class="wf-sp ak">110100</div>
+            <div style="padding:2px 4px;background:#F8FAFC;font-size:9px;color:#94A3B8">–</div>
+            <div class="wf-sp">0250</div>
+            <div style="padding:2px 4px;background:#F8FAFC;font-size:9px;color:#94A3B8">–</div>
+            <div class="wf-sp">CC-WEST</div>
+            <div class="wf-sp" style="border-left:1px solid #93C5FD;padding:2px 6px">▾</div>
+          </div>
+        </div>
+        <div>
+          <div class="wf-fl" style="margin-bottom:4px">Default dimension — DimensionDefaultingController (4-segment, read-only)</div>
+          <div class="wf-seg" style="opacity:.65">
+            <div class="wf-sp" style="background:#F8FAFC;color:#64748B">0250</div>
+            <div style="padding:2px 4px;background:#F8FAFC;font-size:9px;color:#94A3B8">–</div>
+            <div class="wf-sp" style="background:#F8FAFC;color:#64748B">CC-WEST</div>
+            <div style="padding:2px 4px;background:#F8FAFC;font-size:9px;color:#94A3B8">–</div>
+            <div class="wf-sp" style="background:#F8FAFC;color:#64748B">P-2026</div>
+            <div style="padding:2px 4px;background:#F8FAFC;font-size:9px;color:#94A3B8">–</div>
+            <div class="wf-sp" style="background:#F8FAFC;color:#64748B">—</div>
+          </div>
+        </div>
+        <div class="wf-note" style="border:none;padding:0">Segment count depends on the Chart of Accounts configuration, not the form design.</div>
+      </div>
+      ${note('Each segment has its own independent lookup. Never replicate with individual StringEdit fields. Annotate mocks with a config note.')}
+    `);
+
+    case 'workflow-controls': return W(`
+      ${ap(['Sales order','Sell','Invoice'])}
+      ${wfbar('In review','b')}
+      ${rt('SO-00001','Fabrikam Inc.','In review','b')}
+      <div style="padding:5px">
+        <div class="wf-fl" style="margin-bottom:4px">Button visibility by workflow status</div>
+        <table class="wf-g">
+          <thead><tr><th>Button</th><th>Draft</th><th>In review</th><th>Approved</th><th>Rejected</th></tr></thead>
+          <tbody>
+            <tr><td>Submit</td><td style="color:#16A34A">✓</td><td>—</td><td>—</td><td style="color:#16A34A">✓</td></tr>
+            <tr><td>Approve</td><td>—</td><td style="color:#16A34A">✓ approver</td><td>—</td><td>—</td></tr>
+            <tr><td>Reject</td><td>—</td><td style="color:#16A34A">✓ approver</td><td>—</td><td>—</td></tr>
+            <tr><td>Recall</td><td>—</td><td style="color:#16A34A">✓ originator</td><td>—</td><td>—</td></tr>
+            <tr><td>History</td><td style="color:#16A34A">✓</td><td style="color:#16A34A">✓</td><td style="color:#16A34A">✓</td><td style="color:#16A34A">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      ${note('WorkflowBar is framework-injected beneath the ActionPane. Form becomes read-only when submitted. Recall ≠ business cancellation.')}
+    `);
+
+    case 'record-title': return W(`
+      <div style="padding:6px;display:flex;flex-direction:column;gap:6px">
+        <div><div class="wf-fl" style="margin-bottom:3px">ID : Description — Status</div>
+          ${rt('SO-00001','Fabrikam Inc.','Confirmed','g')}
+        </div>
+        <div><div class="wf-fl" style="margin-bottom:3px">ID only (no description field)</div>
+          ${rt('GL-00124','','')}
+        </div>
+        <div><div class="wf-fl" style="margin-bottom:3px">New unsaved record</div>
+          <div class="wf-rt"><div class="wf-rid" style="color:#94A3B8">&lt;New&gt;</div></div>
+        </div>
+        <div><div class="wf-fl" style="margin-bottom:3px">With secondary attributes (·)</div>
+          <div class="wf-rt"><div class="wf-rid">SO-00001 <span style="color:#94A3B8;font-weight:400">:</span> Fabrikam Inc. <span style="color:#94A3B8;font-weight:400">·</span> <span style="font-weight:400;color:#64748B;font-size:9px">B2B · €12,500</span></div></div>
+        </div>
+      </div>
+      ${note('Always read-only. ID separator is " : " (space-colon-space). Status separator is " — " (space-em-dash-space). Never show internal RecId.')}
+    `);
+
+    case 'entity-status': return W(`
+      <div style="padding:7px;display:flex;flex-direction:column;gap:9px">
+        <div>
+          <div class="wf-fl" style="margin-bottom:5px">Status badge variants — Fluent 2 semantic tokens</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+            <span class="wf-chip gr">Draft</span>
+            <span class="wf-chip gr">Created</span>
+            <span class="wf-chip g">Confirmed</span>
+            <span class="wf-chip g">Active</span>
+            <span class="wf-chip b">In review</span>
+            <span class="wf-chip b">Processing</span>
+            <span class="wf-chip a">On hold</span>
+            <span class="wf-chip a">Partial</span>
+            <span class="wf-chip r">Rejected</span>
+            <span class="wf-chip r">Cancelled</span>
+          </div>
+        </div>
+        <div>
+          <div class="wf-fl" style="margin-bottom:4px">In RecordTitle (title area) context</div>
+          ${rt('SO-00001','Fabrikam Inc.','Confirmed','g')}
+          ${rt('SO-00002','Contoso Ltd.','On hold','a')}
+          ${rt('SO-00003','Northwind','Cancelled','r')}
+        </div>
+        <div style="background:#FEF9C3;border:1px solid #FDE68A;border-radius:3px;padding:4px 7px;font-size:9px">
+          WorkflowBar chip (yellow bar, "In review") is separate from EntityStatus badge — both can appear simultaneously.
+        </div>
+      </div>
+      ${note('One status badge per form. Map each enum value to a status.* semantic token. Consistent label across grid column, title badge, and workspace tile.')}
+    `);
+
+    default: return '';
+  }
+}
+
+function renderItem(item,sk){
+  const st=(item.status||'Todo').toLowerCase();
+  const hd=`<div class="item-head"><div class="item-brow"><span>${secTag(sk)}</span><span class="badge ${st}">${item.status}</span></div><div class="item-name">${item.name}</div><div class="item-meta">${item.figma?`<div class="meta-grp"><span class="meta-lbl">Figma</span><span class="meta-val">${item.figma}</span></div>`:''} ${item.aot?`<div class="meta-grp"><span class="meta-lbl">AOT</span><span class="meta-val">${item.aot}</span></div>`:''}</div>${item.purpose?`<div class="item-purpose">${item.purpose}</div>`:''}</div>`;
+  if(st==='todo'||st==='stub'){return hd+`<div class="pending"><h3>${st==='stub'?'Stub — full doc pending':'Catalog doc not yet written'}</h3><p>Track progress in <code>catalog/README.md</code></p></div>`;}
+  let html=hd;
+  const wfHtml=renderWireframe(item.id);
+  if(wfHtml){html+=`<div class="sec"><div class="sec-ttl">Visual structure</div>${wfHtml}</div>`;}
+  if(item.useWhen||item.dontUseWhen){html+=`<div class="sec"><div class="sec-ttl">When to use</div><ul class="rules">${item.useWhen?`<li><strong>Use when:</strong> ${item.useWhen}</li>`:''}${item.dontUseWhen?`<li><strong>Don't use when:</strong> ${item.dontUseWhen}</li>`:''}</ul></div>`;}
+  if(item.anatomy){html+=`<div class="sec"><div class="sec-ttl">Anatomy</div><div class="anatomy">${item.anatomy}</div></div>`;}
+  if(item.rules?.length){html+=`<div class="sec"><div class="sec-ttl">Key rules</div><ul class="rules">${item.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>`;}
+  if(item.doList?.length||item.dontList?.length){html+=`<div class="sec"><div class="sec-ttl">Do / Don't</div><div class="dd"><div class="do-blk"><div class="dd-lbl">Do</div><ul class="dd-list">${(item.doList||[]).map(d=>`<li>${d}</li>`).join('')}</ul></div><div class="dn-blk"><div class="dd-lbl">Don't</div><ul class="dd-list">${(item.dontList||[]).map(d=>`<li>${d}</li>`).join('')}</ul></div></div></div>`;}
+  if(item.props?.length){html+=`<div class="sec"><div class="sec-ttl">Key AOT properties</div><div style="overflow-x:auto"><table class="ptbl"><thead><tr><th>Property</th><th>Notes</th></tr></thead><tbody>${item.props.map(([p,n])=>`<tr><td>${p}</td><td>${n}</td></tr>`).join('')}</tbody></table></div></div>`;}
+  if(item.figmaVariants?.length){html+=`<div class="sec"><div class="sec-ttl">Figma component</div><div class="figma-chip">◆ ${item.figma}</div><div class="variants">${item.figmaVariants.map(v=>`<span class="vchip">${v}</span>`).join('')}</div></div>`;}
+  return html;
+}
+
+function navigate(id,sk){
+  if(!sk){for(const s of SECTIONS){if(s.data.find(d=>d.id===id)){sk=s.key;break;}}}
+  const item=SECTIONS.find(s=>s.key===sk)?.data.find(d=>d.id===id);
+  if(!item)return;
+  currentId=id;
+  buildNav(document.getElementById('search').value.toLowerCase().trim()||undefined);
+  const main=document.getElementById('main');
+  main.innerHTML=renderItem(item,sk);main.scrollTop=0;
+}
+
+function showHome(){
+  currentId=null;buildNav();
+  const main=document.getElementById('main');
+  const total=SECTIONS.reduce((n,s)=>n+s.data.length,0);
+  const seeded=SECTIONS.reduce((n,s)=>n+s.data.filter(d=>d.status==='Seeded').length,0);
+  const stub=SECTIONS.reduce((n,s)=>n+s.data.filter(d=>d.status==='Stub').length,0);
+  let html=`<div class="home-ttl">D365FO Figma Catalog</div><div class="home-sub">${total} items · <span style="color:#16A34A;font-weight:600">${seeded} seeded</span> · <span style="color:#D97706;font-weight:600">${stub} stub</span> · <span style="color:#94A3B8;font-weight:600">${total-seeded-stub} todo</span></div>`;
+  SECTIONS.forEach(s=>{
+    html+=`<div class="home-sec-lbl">${s.label}</div><div class="home-grid">${s.data.map(item=>`<div class="hcard" data-id="${item.id}" data-sec="${s.key}"><div class="hcard-name">${item.name}<span class="badge ${(item.status||'todo').toLowerCase()}" style="font-size:10px;padding:1px 6px">${item.status}</span></div><div class="hcard-figma">${item.figma||'—'}</div><div class="hcard-purpose">${item.purpose||'Doc pending.'}</div></div>`).join('')}</div>`;
+  });
+  main.innerHTML=html;
+  main.querySelectorAll('.hcard').forEach(c=>c.addEventListener('click',()=>navigate(c.dataset.id,c.dataset.sec)));
+}
+
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase().trim();
+  buildNav(q||undefined);
+  if(!q&&!currentId)showHome();
+});
+
+showHome();
+</script>

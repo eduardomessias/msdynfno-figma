@@ -1,0 +1,220 @@
+{
+  "$schema": "https://schemas.tokens.studio/latest/tokens-schema.json",
+  "$description": "Smartbox D365FO core design tokens — primitive values only, mirroring Fluent 2 (Web). Semantic tokens reference these; components NEVER reference core directly. W3C DTCG format.",
+  "color": {
+    "$description": "Primitive color ramps. Use semantic tokens in components, not these values.",
+    "neutral": {
+      "$description": "Neutral grey ramp, Fluent 2 Web.",
+      "grey": {
+        "2":  { "$value": "#050505", "$type": "color" },
+        "4":  { "$value": "#0A0A0A", "$type": "color" },
+        "6":  { "$value": "#0F0F0F", "$type": "color" },
+        "8":  { "$value": "#141414", "$type": "color" },
+        "10": { "$value": "#1A1A1A", "$type": "color" },
+        "12": { "$value": "#1F1F1F", "$type": "color" },
+        "14": { "$value": "#242424", "$type": "color" },
+        "16": { "$value": "#292929", "$type": "color" },
+        "18": { "$value": "#2E2E2E", "$type": "color" },
+        "20": { "$value": "#333333", "$type": "color" },
+        "22": { "$value": "#383838", "$type": "color" },
+        "24": { "$value": "#3D3D3D", "$type": "color" },
+        "26": { "$value": "#424242", "$type": "color" },
+        "28": { "$value": "#474747", "$type": "color" },
+        "30": { "$value": "#4D4D4D", "$type": "color" },
+        "32": { "$value": "#525252", "$type": "color" },
+        "34": { "$value": "#575757", "$type": "color" },
+        "36": { "$value": "#5C5C5C", "$type": "color" },
+        "38": { "$value": "#616161", "$type": "color" },
+        "40": { "$value": "#666666", "$type": "color" },
+        "42": { "$value": "#6B6B6B", "$type": "color" },
+        "44": { "$value": "#707070", "$type": "color" },
+        "46": { "$value": "#757575", "$type": "color" },
+        "48": { "$value": "#7A7A7A", "$type": "color" },
+        "50": { "$value": "#808080", "$type": "color" },
+        "52": { "$value": "#858585", "$type": "color" },
+        "54": { "$value": "#8A8A8A", "$type": "color" },
+        "56": { "$value": "#8F8F8F", "$type": "color" },
+        "58": { "$value": "#949494", "$type": "color" },
+        "60": { "$value": "#999999", "$type": "color" },
+        "62": { "$value": "#9E9E9E", "$type": "color" },
+        "64": { "$value": "#A3A3A3", "$type": "color" },
+        "66": { "$value": "#A8A8A8", "$type": "color" },
+        "68": { "$value": "#ADADAD", "$type": "color" },
+        "70": { "$value": "#B3B3B3", "$type": "color" },
+        "72": { "$value": "#B8B8B8", "$type": "color" },
+        "74": { "$value": "#BDBDBD", "$type": "color" },
+        "76": { "$value": "#C2C2C2", "$type": "color" },
+        "78": { "$value": "#C7C7C7", "$type": "color" },
+        "80": { "$value": "#CCCCCC", "$type": "color" },
+        "82": { "$value": "#D1D1D1", "$type": "color" },
+        "84": { "$value": "#D6D6D6", "$type": "color" },
+        "86": { "$value": "#DBDBDB", "$type": "color" },
+        "88": { "$value": "#E0E0E0", "$type": "color" },
+        "90": { "$value": "#E6E6E6", "$type": "color" },
+        "92": { "$value": "#EBEBEB", "$type": "color" },
+        "94": { "$value": "#F0F0F0", "$type": "color" },
+        "96": { "$value": "#F5F5F5", "$type": "color" },
+        "98": { "$value": "#FAFAFA", "$type": "color" }
+      },
+      "white":   { "$value": "#FFFFFF", "$type": "color" },
+      "black":   { "$value": "#000000", "$type": "color" },
+      "transparent": { "$value": "#00000000", "$type": "color" }
+    },
+    "brand": {
+      "$description": "Fluent 2 brand ramp. Default placeholder = Smartbox red (#E2231A area). Replace with the final brand swatch from marketing; the semantic tokens already reference the named stops below so a swap takes effect everywhere.",
+      "smartboxRed": {
+        "10":  { "$value": "#1A0000", "$type": "color" },
+        "20":  { "$value": "#330000", "$type": "color" },
+        "30":  { "$value": "#4D0000", "$type": "color" },
+        "40":  { "$value": "#660000", "$type": "color" },
+        "50":  { "$value": "#800000", "$type": "color" },
+        "60":  { "$value": "#990000", "$type": "color" },
+        "70":  { "$value": "#B30000", "$type": "color" },
+        "80":  { "$value": "#CC0F0F", "$type": "color" },
+        "90":  { "$value": "#E2231A", "$type": "color" },
+        "100": { "$value": "#E84A40", "$type": "color" },
+        "110": { "$value": "#EC6A60", "$type": "color" },
+        "120": { "$value": "#F08980", "$type": "color" },
+        "130": { "$value": "#F4A8A0", "$type": "color" },
+        "140": { "$value": "#F7C2BC", "$type": "color" },
+        "150": { "$value": "#FADFDB", "$type": "color" },
+        "160": { "$value": "#FCEEEC", "$type": "color" }
+      }
+    },
+    "status": {
+      "$description": "Semantic status palettes, Fluent 2 Web. Reference these via semantic.tokens.json — components never bind directly.",
+      "success": {
+        "10":  { "$value": "#052505", "$type": "color" },
+        "20":  { "$value": "#094509", "$type": "color" },
+        "40":  { "$value": "#107C10", "$type": "color" },
+        "60":  { "$value": "#54B054", "$type": "color" },
+        "80":  { "$value": "#9FD89F", "$type": "color" },
+        "100": { "$value": "#DFF6DD", "$type": "color" }
+      },
+      "warning": {
+        "10":  { "$value": "#271300", "$type": "color" },
+        "20":  { "$value": "#4D2A00", "$type": "color" },
+        "40":  { "$value": "#7A4900", "$type": "color" },
+        "60":  { "$value": "#BC4B09", "$type": "color" },
+        "80":  { "$value": "#FCE100", "$type": "color" },
+        "100": { "$value": "#FFF8C4", "$type": "color" }
+      },
+      "danger": {
+        "10":  { "$value": "#370B0B", "$type": "color" },
+        "20":  { "$value": "#5C1717", "$type": "color" },
+        "40":  { "$value": "#A4262C", "$type": "color" },
+        "60":  { "$value": "#D13438", "$type": "color" },
+        "80":  { "$value": "#F1707B", "$type": "color" },
+        "100": { "$value": "#FDE7E9", "$type": "color" }
+      },
+      "info": {
+        "10":  { "$value": "#001A33", "$type": "color" },
+        "20":  { "$value": "#003366", "$type": "color" },
+        "40":  { "$value": "#0078D4", "$type": "color" },
+        "60":  { "$value": "#2899F5", "$type": "color" },
+        "80":  { "$value": "#83BEEC", "$type": "color" },
+        "100": { "$value": "#E5F2FA", "$type": "color" }
+      },
+      "severeWarning": {
+        "40":  { "$value": "#D83B01", "$type": "color" },
+        "60":  { "$value": "#EA6233", "$type": "color" },
+        "100": { "$value": "#FEEEE6", "$type": "color" }
+      }
+    }
+  },
+  "font": {
+    "$description": "Type primitives. Semantic ramp (body1, subtitle1, …) is in semantic.tokens.json.",
+    "family": {
+      "base":     { "$value": "'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif", "$type": "fontFamily" },
+      "monospace":{ "$value": "Consolas, 'Cascadia Mono', monospace", "$type": "fontFamily" },
+      "numeric":  { "$value": "'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif", "$type": "fontFamily" }
+    },
+    "weight": {
+      "regular":  { "$value": "400", "$type": "fontWeight" },
+      "medium":   { "$value": "500", "$type": "fontWeight" },
+      "semibold": { "$value": "600", "$type": "fontWeight" },
+      "bold":     { "$value": "700", "$type": "fontWeight" }
+    },
+    "size": {
+      "100": { "$value": "10px", "$type": "dimension" },
+      "200": { "$value": "12px", "$type": "dimension" },
+      "300": { "$value": "14px", "$type": "dimension" },
+      "400": { "$value": "16px", "$type": "dimension" },
+      "500": { "$value": "20px", "$type": "dimension" },
+      "600": { "$value": "24px", "$type": "dimension" },
+      "700": { "$value": "28px", "$type": "dimension" },
+      "800": { "$value": "32px", "$type": "dimension" },
+      "900": { "$value": "40px", "$type": "dimension" },
+      "1000":{ "$value": "68px", "$type": "dimension" }
+    },
+    "lineHeight": {
+      "100": { "$value": "14px", "$type": "dimension" },
+      "200": { "$value": "16px", "$type": "dimension" },
+      "300": { "$value": "20px", "$type": "dimension" },
+      "400": { "$value": "22px", "$type": "dimension" },
+      "500": { "$value": "28px", "$type": "dimension" },
+      "600": { "$value": "32px", "$type": "dimension" },
+      "700": { "$value": "36px", "$type": "dimension" },
+      "800": { "$value": "40px", "$type": "dimension" },
+      "900": { "$value": "52px", "$type": "dimension" },
+      "1000":{ "$value": "92px", "$type": "dimension" }
+    }
+  },
+  "space": {
+    "$description": "Fluent 2 spacing scale. Use semantic tokens (e.g. spacing.field.gap) in components; never bind raw space directly.",
+    "none":  { "$value": "0px",  "$type": "dimension" },
+    "xxs":   { "$value": "2px",  "$type": "dimension" },
+    "xs":    { "$value": "4px",  "$type": "dimension" },
+    "snudge":{ "$value": "6px",  "$type": "dimension" },
+    "s":     { "$value": "8px",  "$type": "dimension" },
+    "mnudge":{ "$value": "10px", "$type": "dimension" },
+    "m":     { "$value": "12px", "$type": "dimension" },
+    "l":     { "$value": "16px", "$type": "dimension" },
+    "xl":    { "$value": "20px", "$type": "dimension" },
+    "xxl":   { "$value": "24px", "$type": "dimension" },
+    "xxxl":  { "$value": "32px", "$type": "dimension" }
+  },
+  "radius": {
+    "$description": "Border-radius primitives. Fluent 2 Web.",
+    "none":     { "$value": "0px",  "$type": "dimension" },
+    "small":    { "$value": "2px",  "$type": "dimension" },
+    "medium":   { "$value": "4px",  "$type": "dimension" },
+    "large":    { "$value": "6px",  "$type": "dimension" },
+    "xlarge":   { "$value": "8px",  "$type": "dimension" },
+    "circular": { "$value": "9999px", "$type": "dimension" }
+  },
+  "stroke": {
+    "$description": "Stroke widths used for borders, dividers, and focus rings.",
+    "thinner": { "$value": "0.5px", "$type": "dimension" },
+    "thin":    { "$value": "1px",   "$type": "dimension" },
+    "thick":   { "$value": "2px",   "$type": "dimension" },
+    "thicker": { "$value": "3px",   "$type": "dimension" },
+    "thickest":{ "$value": "4px",   "$type": "dimension" }
+  },
+  "elevation": {
+    "$description": "Fluent 2 elevation. Pair with light/dark via semantic.surface tokens.",
+    "shadow2":  { "$value": "0px 1px 2px rgba(0,0,0,0.14), 0px 0px 2px rgba(0,0,0,0.12)",  "$type": "shadow" },
+    "shadow4":  { "$value": "0px 2px 4px rgba(0,0,0,0.14), 0px 0px 2px rgba(0,0,0,0.12)",  "$type": "shadow" },
+    "shadow8":  { "$value": "0px 4px 8px rgba(0,0,0,0.14), 0px 0px 2px rgba(0,0,0,0.12)",  "$type": "shadow" },
+    "shadow16": { "$value": "0px 8px 16px rgba(0,0,0,0.14), 0px 0px 2px rgba(0,0,0,0.12)", "$type": "shadow" },
+    "shadow28": { "$value": "0px 14px 28px rgba(0,0,0,0.24), 0px 0px 8px rgba(0,0,0,0.20)","$type": "shadow" },
+    "shadow64": { "$value": "0px 32px 64px rgba(0,0,0,0.24), 0px 0px 8px rgba(0,0,0,0.20)","$type": "shadow" }
+  },
+  "duration": {
+    "$description": "Motion durations.",
+    "ultraFast": { "$value": "50ms",  "$type": "duration" },
+    "faster":    { "$value": "100ms", "$type": "duration" },
+    "fast":      { "$value": "150ms", "$type": "duration" },
+    "normal":    { "$value": "200ms", "$type": "duration" },
+    "slow":      { "$value": "300ms", "$type": "duration" },
+    "slower":    { "$value": "400ms", "$type": "duration" },
+    "ultraSlow": { "$value": "500ms", "$type": "duration" }
+  },
+  "easing": {
+    "$description": "Motion easings.",
+    "accelerate":   { "$value": "cubic-bezier(0.7, 0.0, 1.0, 0.5)", "$type": "cubicBezier" },
+    "decelerate":   { "$value": "cubic-bezier(0.1, 0.9, 0.2, 1.0)", "$type": "cubicBezier" },
+    "easyEase":     { "$value": "cubic-bezier(0.33, 0.0, 0.67, 1.0)","$type": "cubicBezier" },
+    "linear":       { "$value": "cubic-bezier(0, 0, 1, 1)",          "$type": "cubicBezier" }
+  }
+}

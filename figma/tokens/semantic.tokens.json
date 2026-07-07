@@ -1,0 +1,161 @@
+{
+  "$schema": "https://schemas.tokens.studio/latest/tokens-schema.json",
+  "$description": "Smartbox D365FO semantic tokens — meaning-based aliases that reference core.tokens.json. Components bind to these. Modes (Light / Dark / HighContrast) and densities (Compact / Comfortable) are declared here. W3C DTCG format with {core.x.y.z} references.",
+  "surface": {
+    "$description": "Background layers from the canvas downward.",
+    "canvas":            { "$value": "{color.neutral.grey.98}", "$type": "color" },
+    "raised":            { "$value": "{color.neutral.white}",   "$type": "color" },
+    "subtle":            { "$value": "{color.neutral.grey.96}", "$type": "color" },
+    "subtler":           { "$value": "{color.neutral.grey.92}", "$type": "color" },
+    "inverted":          { "$value": "{color.neutral.grey.10}", "$type": "color" },
+    "overlay":           { "$value": "{color.neutral.grey.20}", "$type": "color" },
+    "selected":          { "$value": "{color.brand.smartboxRed.160}", "$type": "color" },
+    "selectedSubtle":    { "$value": "{color.brand.smartboxRed.150}", "$type": "color" },
+    "hovered":           { "$value": "{color.neutral.grey.94}", "$type": "color" },
+    "pressed":           { "$value": "{color.neutral.grey.88}", "$type": "color" },
+    "disabled":          { "$value": "{color.neutral.grey.94}", "$type": "color" }
+  },
+  "text": {
+    "$description": "Foreground colors for text. All combinations meet WCAG 2.2 AA on the named surface.",
+    "primary":           { "$value": "{color.neutral.grey.14}", "$type": "color" },
+    "secondary":         { "$value": "{color.neutral.grey.38}", "$type": "color" },
+    "tertiary":          { "$value": "{color.neutral.grey.50}", "$type": "color" },
+    "disabled":          { "$value": "{color.neutral.grey.68}", "$type": "color" },
+    "onAccent":          { "$value": "{color.neutral.white}",   "$type": "color" },
+    "onInverted":        { "$value": "{color.neutral.white}",   "$type": "color" },
+    "link":              { "$value": "{color.status.info.40}",  "$type": "color" },
+    "linkHover":         { "$value": "{color.status.info.20}",  "$type": "color" },
+    "linkVisited":       { "$value": "{color.brand.smartboxRed.60}", "$type": "color" },
+    "danger":            { "$value": "{color.status.danger.40}",  "$type": "color" },
+    "warning":           { "$value": "{color.status.warning.40}", "$type": "color" },
+    "success":           { "$value": "{color.status.success.40}", "$type": "color" }
+  },
+  "border": {
+    "$description": "Border / divider tokens.",
+    "subtle":            { "$value": "{color.neutral.grey.88}", "$type": "color" },
+    "default":           { "$value": "{color.neutral.grey.80}", "$type": "color" },
+    "strong":            { "$value": "{color.neutral.grey.50}", "$type": "color" },
+    "accent":            { "$value": "{color.brand.smartboxRed.90}", "$type": "color" },
+    "focus":             { "$value": "{color.brand.smartboxRed.80}", "$type": "color" },
+    "danger":            { "$value": "{color.status.danger.40}",  "$type": "color" },
+    "warning":           { "$value": "{color.status.warning.40}", "$type": "color" },
+    "success":           { "$value": "{color.status.success.40}", "$type": "color" },
+    "disabled":          { "$value": "{color.neutral.grey.86}", "$type": "color" },
+    "width": {
+      "subtle":          { "$value": "{stroke.thinner}", "$type": "dimension" },
+      "default":         { "$value": "{stroke.thin}",    "$type": "dimension" },
+      "strong":          { "$value": "{stroke.thick}",   "$type": "dimension" },
+      "focusRing":       { "$value": "{stroke.thick}",   "$type": "dimension" }
+    }
+  },
+  "brand": {
+    "$description": "Brand-tinted backgrounds and foregrounds. Used by primary buttons, tabs, selection states, hyperlinks where the brand should show through.",
+    "background":        { "$value": "{color.brand.smartboxRed.90}",  "$type": "color" },
+    "backgroundHover":   { "$value": "{color.brand.smartboxRed.80}",  "$type": "color" },
+    "backgroundPressed": { "$value": "{color.brand.smartboxRed.70}",  "$type": "color" },
+    "backgroundSubtle":  { "$value": "{color.brand.smartboxRed.160}", "$type": "color" },
+    "foreground":        { "$value": "{color.brand.smartboxRed.90}",  "$type": "color" },
+    "foregroundHover":   { "$value": "{color.brand.smartboxRed.80}",  "$type": "color" },
+    "foregroundOnDark":  { "$value": "{color.brand.smartboxRed.120}", "$type": "color" }
+  },
+  "spacing": {
+    "$description": "Semantic spacing. Densities Compact (D365FO default) and Comfortable override these in mode collections.",
+    "field": {
+      "labelGap":        { "$value": "{space.xs}",  "$type": "dimension" },
+      "fieldGap":        { "$value": "{space.m}",   "$type": "dimension" },
+      "groupGap":        { "$value": "{space.l}",   "$type": "dimension" },
+      "sectionGap":      { "$value": "{space.xl}",  "$type": "dimension" }
+    },
+    "grid": {
+      "rowPaddingY":     { "$value": "{space.xs}",  "$type": "dimension" },
+      "cellPaddingX":    { "$value": "{space.s}",   "$type": "dimension" },
+      "headerPaddingY":  { "$value": "{space.s}",   "$type": "dimension" }
+    },
+    "actionPane": {
+      "paddingY":        { "$value": "{space.xs}",   "$type": "dimension" },
+      "paddingX":        { "$value": "{space.m}",    "$type": "dimension" },
+      "buttonGap":       { "$value": "{space.xs}",   "$type": "dimension" },
+      "groupGap":        { "$value": "{space.s}",    "$type": "dimension" }
+    },
+    "fastTab": {
+      "headerHeight":    { "$value": "32px", "$type": "dimension" },
+      "contentPaddingY": { "$value": "{space.m}",  "$type": "dimension" },
+      "contentPaddingX": { "$value": "{space.l}",  "$type": "dimension" }
+    },
+    "dialog": {
+      "paddingY":        { "$value": "{space.xl}",  "$type": "dimension" },
+      "paddingX":        { "$value": "{space.xxl}", "$type": "dimension" }
+    }
+  },
+  "size": {
+    "$description": "Standard control sizes.",
+    "control": {
+      "heightCompact":   { "$value": "24px", "$type": "dimension" },
+      "heightDefault":   { "$value": "32px", "$type": "dimension" },
+      "heightLarge":     { "$value": "40px", "$type": "dimension" }
+    },
+    "icon": {
+      "xs":              { "$value": "12px", "$type": "dimension" },
+      "s":               { "$value": "16px", "$type": "dimension" },
+      "m":               { "$value": "20px", "$type": "dimension" },
+      "l":               { "$value": "24px", "$type": "dimension" }
+    },
+    "factbox": {
+      "width":           { "$value": "320px", "$type": "dimension" }
+    },
+    "navigationPane": {
+      "widthCollapsed":  { "$value": "48px",  "$type": "dimension" },
+      "widthExpanded":   { "$value": "280px", "$type": "dimension" }
+    }
+  },
+  "radius": {
+    "$description": "Semantic radii by component class.",
+    "control":           { "$value": "{radius.medium}",   "$type": "dimension" },
+    "container":         { "$value": "{radius.medium}",   "$type": "dimension" },
+    "card":              { "$value": "{radius.large}",    "$type": "dimension" },
+    "pill":              { "$value": "{radius.circular}", "$type": "dimension" },
+    "input":             { "$value": "{radius.medium}",   "$type": "dimension" }
+  },
+  "typography": {
+    "$description": "Fluent 2 type ramp. Each ramp step bundles family, weight, size, and line-height as a composite token. Components bind to a ramp slot.",
+    "caption2":          { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.regular}",  "fontSize": "{font.size.100}", "lineHeight": "{font.lineHeight.100}" }, "$type": "typography" },
+    "caption1":          { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.regular}",  "fontSize": "{font.size.200}", "lineHeight": "{font.lineHeight.200}" }, "$type": "typography" },
+    "caption1Strong":    { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.200}", "lineHeight": "{font.lineHeight.200}" }, "$type": "typography" },
+    "body1":             { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.regular}",  "fontSize": "{font.size.300}", "lineHeight": "{font.lineHeight.300}" }, "$type": "typography" },
+    "body1Strong":       { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.300}", "lineHeight": "{font.lineHeight.300}" }, "$type": "typography" },
+    "body2":             { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.regular}",  "fontSize": "{font.size.400}", "lineHeight": "{font.lineHeight.400}" }, "$type": "typography" },
+    "body2Strong":       { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.400}", "lineHeight": "{font.lineHeight.400}" }, "$type": "typography" },
+    "subtitle2":         { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.400}", "lineHeight": "{font.lineHeight.400}" }, "$type": "typography" },
+    "subtitle1":         { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.500}", "lineHeight": "{font.lineHeight.500}" }, "$type": "typography" },
+    "title3":            { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.600}", "lineHeight": "{font.lineHeight.600}" }, "$type": "typography" },
+    "title2":            { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.700}", "lineHeight": "{font.lineHeight.700}" }, "$type": "typography" },
+    "title1":            { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.800}", "lineHeight": "{font.lineHeight.800}" }, "$type": "typography" },
+    "largeTitle":        { "$value": { "fontFamily": "{font.family.base}", "fontWeight": "{font.weight.semibold}", "fontSize": "{font.size.900}", "lineHeight": "{font.lineHeight.900}" }, "$type": "typography" },
+    "display":           { "$value": "{font.family.numeric}", "$type": "fontFamily", "$description": "Use {font.size.1000} + {font.lineHeight.1000}. Reserved for marketing-only canvases; rarely appears in D365FO." }
+  },
+  "elevation": {
+    "$description": "Semantic elevation by component class.",
+    "card":              { "$value": "{elevation.shadow2}",  "$type": "shadow" },
+    "factbox":           { "$value": "{elevation.shadow2}",  "$type": "shadow" },
+    "flyout":            { "$value": "{elevation.shadow16}", "$type": "shadow" },
+    "dialog":            { "$value": "{elevation.shadow28}", "$type": "shadow" },
+    "tooltip":           { "$value": "{elevation.shadow8}",  "$type": "shadow" }
+  },
+  "motion": {
+    "controlState":      { "$value": "{duration.faster}", "$type": "duration" },
+    "fastTabExpand":     { "$value": "{duration.normal}", "$type": "duration" },
+    "dialogEnter":       { "$value": "{duration.slow}",   "$type": "duration" },
+    "ease": {
+      "stateChange":     { "$value": "{easing.easyEase}",   "$type": "cubicBezier" },
+      "enter":           { "$value": "{easing.decelerate}", "$type": "cubicBezier" },
+      "exit":            { "$value": "{easing.accelerate}", "$type": "cubicBezier" }
+    }
+  },
+  "focus": {
+    "$description": "Focus ring spec — keep consistent across all keyboard-focusable controls.",
+    "ringColorInner":    { "$value": "{color.neutral.white}", "$type": "color" },
+    "ringColorOuter":    { "$value": "{color.neutral.grey.14}", "$type": "color" },
+    "ringWidth":         { "$value": "{stroke.thick}",     "$type": "dimension" },
+    "ringOffset":        { "$value": "{stroke.thin}",      "$type": "dimension" }
+  }
+}
